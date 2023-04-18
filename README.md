@@ -1,12 +1,48 @@
-# DevSoftWeb2023_1
- Repositório dedicado ao Projeto Final da disciplina de Desenvolvimento de Software para Web.
+# 📽️ Anime-Flex 🎞️
 
-# Anime-Flex
+### 🕵🏼💻 Membros da Equipe
 
-O projeto consiste em uma página web para streaming de animes, será desenvolvido utilizando a framework Vue.js.
+- Antonio Matheus Rodrigues e Silva
+    - Matricula: 400107
+    - E-mail: ec.mattrodrigues@gmail.com
+    - Curso: EC
+- José Auri Joter Martins Filho
+    - Matricula: 421978
+    - E-mail: joseauri14@gmail.com
+    - Curso: EC
 
-### Requisitos
+### 👤👥 **Papéis ou tipos de usuário da aplicação**
 
-- Qualquer um que acessar o site pode assistir qualquer lista de episódios, mesmo sem estar cadastrado.
-- Para criar e excluir comentários, o usuário deve estar cadastrado e logado no sistema.
-- Somente administradores podem criar, editar ou excluir episíos ou listas de episódios.
+- Administrador
+- Membro
+- Usuário não logado
+
+### 🗓️📅**Entidades ou tabelas do sistema**
+
+- Lista de Administradores
+- Lista contendo os vídeos
+- Lista de Membros
+- Lista de Comentários
+- Lista de Favoritos
+
+### 📑📈⚙️ **Principais funcionalidades da aplicação**
+
+- Administrador
+    - Cadastrar Animes novos
+    - Remover Animes já cadastrados
+    - Atualizar informações dos Animes cadastrados
+    - Excluir comentários
+    - Adicionar novo administrador
+    - Remover administrador cadastrado
+    - Remover Membros
+- Membro
+    - Assistir animes
+    - Favoritar Animes
+    - Criar comentários
+    - Editar comentários
+    - Excluir comentários
+    - Descadastrar-se como membro
+- Usuário não logado
+    - Assistir animes
+    - Ler Comentários
+    - Cadastrar-se como membro
