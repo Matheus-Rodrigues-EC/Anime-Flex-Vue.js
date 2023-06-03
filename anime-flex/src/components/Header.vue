@@ -11,8 +11,10 @@ export default {
 <template>
     <div class="header">
         <a>Home</a>
-        <a>Entrar</a>
-        <a>Cadastrar-se</a> 
+        <div class="account">
+            <a>Entrar</a>
+            <a>Cadastrar-se</a> 
+        </div>
     </div>
 </template>
 
@@ -38,6 +40,11 @@ input{
     border: none;
     border-radius: 15px;
     box-sizing: border-box;
+}
+
+.account {
+    display: flex;
+    gap: 15px;
 }
 
 </style>

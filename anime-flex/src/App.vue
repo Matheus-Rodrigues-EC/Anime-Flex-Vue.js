@@ -1,14 +1,31 @@
-<template>
-  <Component1 />
-</template>
-
 <script>
-  import Component1 from './components/Component1.vue'
+  import './style.css';
+  import axios from 'axios';
+  import Header from './components/Header.vue';
+  import AnimeList from './components/AnimeList.vue';
 
   export default{
     name: 'App',
     components: {
-      Component1
+      Header,
+      AnimeList
+    },
+    data(){
+      return {
+      }
     }
   }
 </script>
+
+<template>
+  <div>
+    <Header />
+    <AnimeList />
+  </div>
+</template>
+
+<style>
+
+
+
+</style>
