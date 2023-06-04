@@ -3,12 +3,14 @@
   import axios from 'axios';
   import Header from './components/Header.vue';
   import AnimeList from './components/AnimeList.vue';
+  import SignUp from './pages/SignUp.vue';
 
   export default{
     name: 'App',
     components: {
       Header,
-      AnimeList
+      AnimeList, 
+      SignUp
     },
     data(){
       return {
@@ -20,7 +22,8 @@
 <template>
   <div>
     <Header />
-    <AnimeList />
+    <!-- <AnimeList /> -->
+    <SignUp />
   </div>
 </template>
 
