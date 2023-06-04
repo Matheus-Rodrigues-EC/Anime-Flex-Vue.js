@@ -4,13 +4,15 @@
   import Header from './components/Header.vue';
   import AnimeList from './components/AnimeList.vue';
   import SignUp from './pages/SignUp.vue';
+  import SignIn from './pages/SignIn.vue';
 
   export default{
     name: 'App',
     components: {
       Header,
       AnimeList, 
-      SignUp
+      SignUp,
+      SignIn
     },
     data(){
       return {
@@ -23,7 +25,8 @@
   <div>
     <Header />
     <!-- <AnimeList /> -->
-    <SignUp />
+    <!-- <SignUp /> -->
+    <SignIn />
   </div>
 </template>
 
