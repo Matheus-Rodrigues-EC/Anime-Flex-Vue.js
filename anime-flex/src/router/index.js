@@ -4,7 +4,6 @@ import SignUp from '../pages/SignUp.vue';
 import Home from '../pages/Home.vue';
 import Anime from '../pages/Anime.vue';
 import Season from '../pages/Season.vue';
-import Episode from '../pages/Episode.vue';
 
 import AdminLogin from '../pages/Admin/AdminLogin.vue';
 import AdminHome from '../pages/Admin/AdminHome.vue';
@@ -20,7 +19,6 @@ const routes = [
     { path: '/signup', name: 'SignUp', component: SignUp},
     { path: '/anime/:name', name: 'Anime', component: Anime, props: true},
     { path: '/:name/:season', name: 'Season', component: Season, props: true},
-    { path: '/:name/:season/:episode', name: 'Episode', component: Episode, props: true},
 
 //  Admin Routes
     { path: '/admin', name: 'AdminLogin', component: AdminLogin},

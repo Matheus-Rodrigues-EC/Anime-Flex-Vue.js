@@ -50,9 +50,9 @@ export default {
         <div class="ContainerList">
             <ul class="List">
                 <li v-for="(episode) in EpisodesList" :key="episode._id">
-                    <router-link :to="'/'+SeasonInfo.Anime+'/'+SeasonInfo.Name+'/'+episode.Name">
+                    <a :href="episode.URL" target="_blank">
                         <h4>{{ episode.Number }}. {{ episode.Name }}</h4>
-                    </router-link>
+                    </a>
                     <div v-if="this.verifyAdmin" class="Admin" >
                         <button class="warning">Editar</button>
                         <button class="danger">Deletar</button>
