@@ -1,9 +1,8 @@
 <script>
 import axios from 'axios';
 
-
 export default {
-    name: 'SignInPage',
+    name: 'SignIn',
     components: {
 
     },
@@ -21,15 +20,14 @@ export default {
 
             const body = {email, password};
 
-            axios.post("http://localhost:5000/signin", body)
+            axios.post(`${import.meta.env.VITE_BASE_URL}/signin`, body)
                 .then((res) => {
                     console.log(res.data);
                     localStorage.setItem("token", res.data.token);
-                    this.email = '';
-                    this.password = '';
+                    this.$router.push('/') 
                 })
                 .catch((error) => {
-                    console.log(error.response.data)
+                    console.log(error)
                 })
         }
     }

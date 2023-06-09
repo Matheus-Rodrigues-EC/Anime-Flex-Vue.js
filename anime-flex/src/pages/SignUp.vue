@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 export default {
-    name: 'SignUpPage',
+    name: 'SignUp',
     components: {
 
     },
@@ -24,7 +24,7 @@ export default {
 
             const body = {name, image, email, password};
 
-            axios.post("http://localhost:5000/signup", body)
+            axios.post(`${import.meta.env.VITE_BASE_URL}/signup`, body)
                 .then((res) => {
                     console.log("Membro cadastrado.");
                     this.name = '';
