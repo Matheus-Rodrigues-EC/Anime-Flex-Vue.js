@@ -44,16 +44,16 @@ export default {
     <div class="cadastro" >
         <form action="" @submit="sendSignUp" class="cadastro" >
             <img class="preview" :src="this.image" alt="Esperando Imagem..."/>
-            <input type="text" required @change="e => this.name = e.target.value" placeholder="name" value="" />
-            <input type="url" required @change="e => this.image = e.target.value" placeholder="url da imagem" value="" />
-            <input type="email" required @change="e => this.email = e.target.value" placeholder="email" value="" />
-            <input type="password" required @change="e => this.password = e.target.value" placeholder="password" value="" />
-            <input type="submit" />
+            <input type="text" required @change="e => this.name = e.target.value" placeholder="Name" value="" />
+            <input type="url" required @change="e => this.image = e.target.value" placeholder="Url da imagem" value="" />
+            <input type="email" required @change="e => this.email = e.target.value" placeholder="Email" value="" />
+            <input type="password" required @change="e => this.password = e.target.value" placeholder="Password" value="" />
+            <button type="submit">Cadastrar</button>
         </form>
     </div>
 </template>
 
-<style>
+<style scoped>
 
 .cadastro{
     display: flex;
@@ -71,5 +71,8 @@ export default {
     box-sizing: border-box;
 }
 
+button{
+    transition: border-color 1s;
+}
 
 </style>

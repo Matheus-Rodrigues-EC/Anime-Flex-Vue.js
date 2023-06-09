@@ -37,14 +37,14 @@ export default {
 <template>
     <div class="cadastro" >
         <form action="" @submit="sendSignIn" class="cadastro" >
-            <input type="email" required @change="e => this.email = e.target.value" placeholder="email" value="" />
-            <input type="password" required @change="e => this.password = e.target.value" placeholder="password" value="" />
-            <input type="submit" />
+            <input type="email" required @change="e => this.email = e.target.value" placeholder="Email" value="" />
+            <input type="password" required @change="e => this.password = e.target.value" placeholder="Password" value="" />
+            <button type="submit">Entrar</button>
         </form>
     </div>
 </template>
 
-<style>
+<style scoped>
 
 .cadastro{
     display: flex;
@@ -53,13 +53,8 @@ export default {
     gap: 15px;
 }
 
-.preview {
-    width: fit-content;
-    height: 150px;
-    border: 1.5px solid #101010;
-    border-radius: 15px;
-    margin: auto;
-    box-sizing: border-box;
+button{
+    transition: border-color 1s;
 }
 
 </style>
