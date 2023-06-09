@@ -14,7 +14,7 @@ export default {
     </div>
 </template>
 
-<style>
+<style scoped>
 
 .header {
     display: flex;
@@ -30,14 +30,7 @@ export default {
     z-index: 9;
 }
 
-input{
-    width: 250px;
-    height: 25px;
-    padding-left: 15px;
-    border: none;
-    border-radius: 15px;
-    box-sizing: border-box;
-}
+
 
 .account {
     display: flex;

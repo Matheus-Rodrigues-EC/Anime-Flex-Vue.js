@@ -10,11 +10,14 @@ export default {
     },
     data() {
         return {
-            AnimesList: []
+            AnimesList: [],
+            verifyAdmin: ''
+
         }
     },
     created() {
         this.getAnimes();
+        this.adminOn();
     },
     methods: {
         getAnimes() {
@@ -28,6 +31,14 @@ export default {
         }, 
         AnimeName(name){
             this.$emit("NameAnime", name);
+        },
+        adminOn(){
+            const admin = localStorage.getItem('tokenAdmin');
+            if(admin){
+                this.verifyAdmin = true;
+            }else{
+                this.verifyAdmin = false;
+            }
         }
     }
 }
@@ -42,6 +53,10 @@ export default {
                     <img class="cover" :src="Anime.Cover" />
                     <p   class="anime_title">{{ Anime.Name }}</p>
                 </router-link>
+                <div v-if="this.verifyAdmin" class="Admin" >
+                        <button class="warning">Editar</button>
+                        <button class="danger">Deletar</button>
+                </div>
             </li>
         </ul>
     </div>
@@ -62,18 +77,22 @@ ul{
     list-style: none;
     display: flex;
     flex-wrap: wrap;
-    gap: 25px;
+    gap: 25px;    
+    animation: esmaecer 1s;
 }
 
 li {
+    display: flex;
+    flex-direction: column;
     transition: background-color 0.5s;
     background-color: #181818;
-    width: 12rem;
-    height: 15rem;
+    width: 15rem;
+    height: 18rem;
+    flex-wrap: nowrap;
     border: 1.5px solid #000;
     border-radius: 15px;
-    
     box-sizing: border-box;
+    animation: esmaecer 1s;
 }
 li:hover {
     background-color: #101010;
@@ -85,20 +104,36 @@ li:hover {
 
 li .cover {
     width: fit-content;
-    height: 6rem;
+    height: 7rem;
     border-radius: 15px;
     margin: 10px;
 }
 
 li .anime_title{
     display: flex;
-    flex-direction: column;
     font-family: 'Courier New', Courier, monospace;
     font-size: 20px;
     align-items: center;
     justify-content: center;
+    margin: 30px auto;
+}
+
+.Admin{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+    margin: auto auto 10px auto;
 }
 
 
+
+button {
+    margin: 0 5px;
+    width: 75px;
+    font-size: 10px;
+    background-color: #101010;
+    transition: border-color, color .5s;
+}
 
 </style>

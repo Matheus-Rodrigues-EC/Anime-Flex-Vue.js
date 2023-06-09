@@ -6,7 +6,8 @@ export default {
     data() {
         return {
             SeasonInfo: {},
-            EpisodesList: []
+            EpisodesList: [],
+            verifyAdmin: ''
         }
     },
     props:{
@@ -15,6 +16,7 @@ export default {
     },
     created(){
         this.getSeason();
+        this.adminOn();
     },
     methods:{
         getSeason() {
@@ -27,6 +29,14 @@ export default {
                 .catch((error) => {
                     console.log(error.response.data);
                 })
+        },
+        adminOn(){
+            const admin = localStorage.getItem('tokenAdmin');
+            if(admin){
+                this.verifyAdmin = true;
+            }else{
+                this.verifyAdmin = false;
+            }
         }
     }
 }
@@ -44,7 +54,11 @@ export default {
                     <router-link :to="'/'+SeasonInfo.Anime+'/'+SeasonInfo.Name+'/'+episode.Name">
                         <h4>{{ episode.Name }}</h4>
                     </router-link>
-                    </li>
+                    <div v-if="this.verifyAdmin" class="Admin" >
+                        <button class="warning">Editar</button>
+                        <button class="danger">Deletar</button>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>
@@ -55,43 +69,64 @@ export default {
 .Banner{
     display: flex;
     flex-direction: column;
-    margin: 7.5% auto;
+    margin: 7.5% auto auto auto;
 }
 
 .BannerImg{
     width: 75%;
     height: fit-content;
-    margin: auto;
+    margin: 50px auto 0 auto;
+    animation: esmaecer 1s;
+}
+
+.BannerTitle {
+    animation: esmaecer 1s;
 }
 
 .List{
     display: flex;
     flex-direction: column;
-    margin: auto;
+    margin: 0 auto 50px auto;
     width: 75%;
     min-height: 150px;
     height: auto;
 
-    border: 1px solid #181818;
+    border: 1px solid #000;
     border-radius: 15px;
-    background-color: rgb(0, 0, 0, 0.5);
+    background-color: #181818;
     padding: 15px;
     box-sizing: border-box;
 
     list-style-type: none;
+    animation: surgir 1s;
+
 }
 
 li{
     display: flex;
-    flex-direction: row;
-    gap: 25px;
+    flex-direction: column;
     margin: 0 auto;
 }
 
-.Cover{
-    width: 100px;
+h4{
+    height: 10px;
+    animation: surgir 1s;
 }
 
+.Admin{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+    margin: auto auto 5px auto;
+}
 
+button {
+    margin: 0 5px;
+    width: 75px;
+    font-size: 10px;
+    background-color: #101010;
+    transition: border-color, color .5s;
+}
 
 </style>

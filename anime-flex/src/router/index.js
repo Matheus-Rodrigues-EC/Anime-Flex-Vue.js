@@ -9,6 +9,9 @@ import Episode from '../pages/Episode.vue';
 import AdminLogin from '../pages/Admin/AdminLogin.vue';
 import AdminHome from '../pages/Admin/AdminHome.vue';
 import CreateAdmin from '../pages/Admin/CreateAdmin.vue';
+import CreateAnime from '../pages/Admin/CreateAnime.vue';
+import CreateSeason from '../pages/Admin/CreateSeason.vue';
+import CreateEpisode from '../pages/Admin/CreateEpisode.vue';
 
 
 const routes = [
@@ -23,6 +26,9 @@ const routes = [
     { path: '/admin', name: 'AdminLogin', component: AdminLogin},
     { path: '/adminhome', name: 'AdminHome', component: AdminHome},
     { path: '/createAdmin', name: 'CreateAdmin', component: CreateAdmin},
+    { path: '/CreateAnime', name: 'CreateAnime', component: CreateAnime},
+    { path: '/CreateSeason', name: 'CreateSeason', component: CreateSeason},
+    { path: '/CreateEpisode', name: 'CreateEpisode', component: CreateEpisode},
     
 
 ]

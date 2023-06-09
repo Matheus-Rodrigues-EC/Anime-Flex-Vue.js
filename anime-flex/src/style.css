@@ -4,7 +4,7 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
+  color: rgba(255, 255, 255, 0.75);
   background-color: #242424;
 
   font-synthesis: none;
@@ -13,6 +13,26 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+
+@keyframes surgir {
+  from {
+      transform: translateY(10px);
+      opacity: 0;
+  }
+  to {
+      transform: translateY(0);
+      opacity: 1;
+  }
+} 
+
+@keyframes esmaecer {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+} 
 
 a {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -27,7 +47,7 @@ a:hover {
 }
 
 body {
-  margin: 0;
+  margin: auto;
   display: flex;
   min-width: 320px;
   min-height: 100vh;
@@ -36,6 +56,16 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+}
+
+input{
+  width: 350px;
+  height: 50px;
+  padding-left: 15px;
+  border: none;
+  border-radius: 15px;
+  box-sizing: border-box;
+  animation: surgir 1s;
 }
 
 button {
@@ -47,15 +77,28 @@ button {
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 1s;
+  transition: color, border-color .5s;
+  animation: surgir 1s;
+
 }
 button:hover {
   border-color: #646cff;
 }
 
+.warning:hover{
+  border-color:#CCCC18;
+  color: #CCCC18;
+}
+
+.danger:hover{
+  border-color: #CC1818;
+  color: #CC1818;
+}
+
 #app {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0;
   text-align: center;
 }
+
