@@ -22,7 +22,6 @@ export default {
 
             axios.post(`${import.meta.env.VITE_BASE_URL}/signin`, body)
                 .then((res) => {
-                    console.log(res.data);
                     localStorage.setItem("token", res.data.token);
                     this.$router.push('/') 
                 })

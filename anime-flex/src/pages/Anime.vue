@@ -19,13 +19,11 @@ export default {
         this.adminOn();
     },
     mounted(){
-        // console.log(ServiceTest.MyString);
     },
     methods:{
         async getAnimeInfo() {
             axios.get(`${import.meta.env.VITE_BASE_URL}/anime/${this.name}`)
                 .then((res) => {
-                    console.log(res.data);
                     const Anime = res.data.Anime;
                     const Seasons = res.data.Seasons;
                     this.anime = Anime;

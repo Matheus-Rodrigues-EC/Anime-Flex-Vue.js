@@ -19,10 +19,8 @@ export default {
     }, 
     methods:{
         getEpisode() {
-            console.log()
             axios.get(`${import.meta.env.VITE_BASE_URL}/${this.name}/${this.season}/${this.episode}`)
                 .then((res) => {
-                    console.log(res.data);
                     this.Episode = res.data;
                 })
                 .catch((error) => {

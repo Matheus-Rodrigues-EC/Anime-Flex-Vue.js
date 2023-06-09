@@ -22,7 +22,6 @@ export default {
         getSeason() {
             axios.get(`${import.meta.env.VITE_BASE_URL}/${this.name}/${this.season}`)
                 .then((res) => {
-                    console.log(res.data);
                     this.SeasonInfo = res.data.Season;
                     this.EpisodesList = res.data.Episodes
                 })
@@ -52,7 +51,7 @@ export default {
             <ul class="List">
                 <li v-for="(episode) in EpisodesList" :key="episode._id">
                     <router-link :to="'/'+SeasonInfo.Anime+'/'+SeasonInfo.Name+'/'+episode.Name">
-                        <h4>{{ episode.Name }}</h4>
+                        <h4>{{ episode.Number }}. {{ episode.Name }}</h4>
                     </router-link>
                     <div v-if="this.verifyAdmin" class="Admin" >
                         <button class="warning">Editar</button>
