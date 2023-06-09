@@ -1,21 +1,20 @@
 <script>
   import './style.css';
   import axios from 'axios';
-  import Header from './components/Header.vue';
+  import Navbar from './components/Navbar.vue';
   import AnimeList from './components/AnimeList.vue';
-  import SignUp from './pages/SignUp.vue';
-  import SignIn from './pages/SignIn.vue';
 
   export default{
     name: 'App',
     components: {
-      Header,
-      AnimeList, 
-      SignUp,
-      SignIn
+      Navbar,
+      AnimeList
     },
     data(){
       return {
+        AnimeName: '',
+        SeasonNumber: 0,
+        EpisodeNumber: 0
       }
     }
   }
@@ -23,11 +22,13 @@
 
 <template>
   <div>
-    <Header />
-    <!-- <AnimeList /> -->
-    <!-- <SignUp /> -->
-    <SignIn />
+    <Navbar />
+    <div>
+      <router-view />
+    </div>
+    <!-- Footer -->
   </div>
+  
 </template>
 
 <style>

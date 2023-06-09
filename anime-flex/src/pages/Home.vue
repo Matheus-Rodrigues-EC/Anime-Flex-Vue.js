@@ -1,17 +1,27 @@
-<script>
-export default {
-    name: 'HomePage', 
-    components: {
+<script >
+import AnimeList from '../components/AnimeList.vue';
 
+export default {
+    name: 'Home', 
+    components: {
+        AnimeList
     },
-    data() {
-        
+    props: {
+        AnimeName: String
     }
 }
 </script>
 
 <template>
     <div>
-        <h1>Home</h1>
+        <AnimeList />
     </div>
 </template>
+
+<style>
+
+h1{
+    margin: auto;
+}
+
+</style>
