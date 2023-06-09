@@ -1,19 +1,15 @@
 <script >
 export default {
-    name: 'Header',
-    data() {
-        return {
-        }
-    }
+    name: 'Navbar'
 }
 </script>
 
 <template>
     <div class="header">
-        <a>Home</a>
+        <router-link to="/">Home</router-link>
         <div class="account">
-            <a>Entrar</a>
-            <a>Cadastrar-se</a> 
+            <router-link to="/signin">Entrar</router-link>
+            <router-link to="/signup">Cadastrar-se</router-link> 
         </div>
     </div>
 </template>
@@ -31,6 +27,7 @@ export default {
     gap: 15px;
     justify-content: space-evenly;
     align-items: center;
+    z-index: 9;
 }
 
 input{
@@ -45,6 +42,10 @@ input{
 .account {
     display: flex;
     gap: 15px;
+}
+
+router-link{
+    cursor: pointer;
 }
 
 </style>

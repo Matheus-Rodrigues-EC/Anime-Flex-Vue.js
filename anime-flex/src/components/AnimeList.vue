@@ -3,6 +3,11 @@ import axios from 'axios';
 
 export default {
     name: 'AnimeList',
+    components: {
+
+    },
+    props: {
+    },
     data() {
         return {
             AnimesList: []
@@ -13,14 +18,16 @@ export default {
     },
     methods: {
         getAnimes() {
-            axios.get('http://localhost:5000/animes')
+            axios.get(`${import.meta.env.VITE_BASE_URL}/animes`)
                 .then((res) => {
-                    console.log(res.data);
                     this.AnimesList = res.data;
                 })
                 .catch((error) => {
                     alert(error);
                 })
+        }, 
+        AnimeName(name){
+            this.$emit("NameAnime", name);
         }
     }
 }
@@ -29,16 +36,18 @@ export default {
 
 <template>
     <div class="Anime_List">
-        <ul >
-            <li @click="() => console.log(Anime.Name)" class="Anime_Item" v-for="(Anime) in this.AnimesList" :key="Anime._id" >
-                <img class="cover" :src="Anime.Cover" />
-                <p class="anime_title">{{ Anime.Name }}</p>
+        <ul id="List">
+            <li @click="() => AnimeName(Anime.Name)" class="Anime_Item" v-for="(Anime) in this.AnimesList" :key="Anime._id" >
+                <router-link :to="'/anime/'+Anime.Name">
+                    <img class="cover" :src="Anime.Cover" />
+                    <p   class="anime_title">{{ Anime.Name }}</p>
+                </router-link>
             </li>
         </ul>
     </div>
 </template>
 
-<style>
+<style scoped>
 
 .Anime_List{
     width: 100%;
