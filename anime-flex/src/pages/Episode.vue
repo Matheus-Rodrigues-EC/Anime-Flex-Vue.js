@@ -28,9 +28,6 @@ export default {
                 .catch((error) => {
                     console.log(error.response.data);
                 })
-        },
-        getLicense(){
-            
         }
     }
 }
@@ -39,7 +36,7 @@ export default {
 
 <template>
     <div class="episode">
-        <video width="720" height="480" controls :src="Episode.URL" autoplay>
+        <video width="720" height="480" controls :src="Episode.URL" autoplay id="screen">
         </video>
     </div>
 </template>
@@ -49,6 +46,15 @@ export default {
 .episode{
     display: flex;
     margin: 15% auto;
+}
+
+#screen {
+    position: fixed;
+    left: 10%;
+    bottom: 0;
+    min-width: 80%;
+    min-height: 80%;
+    z-index: 9;
 }
 
 </style>
