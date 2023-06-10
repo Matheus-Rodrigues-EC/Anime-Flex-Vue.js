@@ -17,7 +17,7 @@ export default {
         }
     },
     methods: {
-        sendSignUp(e, anime, season_name, episode_name, episode_number, episode_cover, url) {
+        createEpisode(e, anime, season_name, episode_name, episode_number, episode_cover, url) {
             e.preventDefault();
             anime = this.Anime, 
             season_name = this.Season, 
@@ -54,7 +54,7 @@ export default {
 
 <template>
     <div class="cadastro" >
-        <form action="" @submit="sendSignUp" class="cadastro" >
+        <form action="" @submit="createEpisode" class="cadastro" >
             <img class="preview" :src="this.Cover" alt="Esperando Imagem..."/>
             <input type="text" required @change="e => this.Anime = e.target.value" placeholder="Nome do Anime" value="" />
             <input type="text" required @change="e => this.Season = e.target.value" placeholder="Nome da Temporada" value="" />

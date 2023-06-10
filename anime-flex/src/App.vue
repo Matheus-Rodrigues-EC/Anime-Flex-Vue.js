@@ -21,9 +21,9 @@
 </script>
 
 <template>
-  <div>
+  <div class="main">
     <Navbar />
-    <div>
+    <div >
       <router-view />
     </div>
     <!-- Footer -->
@@ -33,4 +33,7 @@
 
 <style>
 
+.main{
+  height: 75%;
+}
 </style>

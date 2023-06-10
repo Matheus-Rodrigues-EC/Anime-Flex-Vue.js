@@ -15,7 +15,7 @@ export default {
         }
     },
     methods: {
-        sendSignUp(e, anime, n_Season, season_cover, season_name) {
+        createSeason(e, anime, n_Season, season_cover, season_name) {
             e.preventDefault();
             anime = this.Anime;
             n_Season = this.Season;
@@ -48,7 +48,7 @@ export default {
 
 <template>
     <div class="cadastro" >
-        <form action="" @submit="sendSignUp" class="cadastro" >
+        <form action="" @submit="createSeason" class="cadastro" >
             <img class="preview" :src="this.Cover" alt="Esperando Imagem..."/>
             <input type="text" required @change="e => this.Anime = e.target.value" placeholder="Nome do Anime" value="" />
             <input type="number" required @change="e => this.Season = e.target.value" placeholder="Número da Temporada" value="" />

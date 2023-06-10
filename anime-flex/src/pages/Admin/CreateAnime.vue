@@ -13,7 +13,7 @@ export default {
         }
     },
     methods: {
-        sendSignUp(e, cover, name) {
+        createAnime(e, cover, name) {
             e.preventDefault();
             cover = this.cover;
             name = this.name;
@@ -42,7 +42,7 @@ export default {
 
 <template>
     <div class="cadastro" >
-        <form action="" @submit="sendSignUp" class="cadastro" >
+        <form action="" @submit="createAnime" class="cadastro" >
             <img class="preview" :src="this.cover" alt="Esperando Imagem..."/>
             <input type="url" required @change="e => this.cover = e.target.value" placeholder="Url da imagem" value="" />
             <input type="text" required @change="e => this.name = e.target.value" placeholder="Nome do Anime" value="" />

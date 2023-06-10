@@ -36,6 +36,7 @@ export default {
 <template>
     <div class="cadastro" >
         <form action="" @submit="sendSignIn" class="cadastro" >
+            <label>Login</label>
             <input type="email" required @change="e => this.email = e.target.value" placeholder="Email" value="" />
             <input type="password" required @change="e => this.password = e.target.value" placeholder="Password" value="" />
             <button type="submit">Entrar</button>
@@ -48,7 +49,7 @@ export default {
 .cadastro{
     display: flex;
     flex-direction: column;
-    margin: 5rem auto;
+    margin: 3.5rem auto;
     gap: 15px;
 }
 

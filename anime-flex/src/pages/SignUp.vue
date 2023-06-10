@@ -43,6 +43,7 @@ export default {
 <template>
     <div class="cadastro" >
         <form action="" @submit="sendSignUp" class="cadastro" >
+            <label>Cadastro</label>
             <img class="preview" :src="this.image" alt="Esperando Imagem..."/>
             <input type="text" required @change="e => this.name = e.target.value" placeholder="Name" value="" />
             <input type="url" required @change="e => this.image = e.target.value" placeholder="Url da imagem" value="" />
@@ -58,7 +59,7 @@ export default {
 .cadastro{
     display: flex;
     flex-direction: column;
-    margin: 5rem auto;
+    margin: 3.5rem auto;
     gap: 15px;
 }
 

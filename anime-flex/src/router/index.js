@@ -11,6 +11,9 @@ import CreateAdmin from '../pages/Admin/CreateAdmin.vue';
 import CreateAnime from '../pages/Admin/CreateAnime.vue';
 import CreateSeason from '../pages/Admin/CreateSeason.vue';
 import CreateEpisode from '../pages/Admin/CreateEpisode.vue';
+import UpdateAnime from '../pages/Admin/UpdateAnime.vue';
+import UpdateSeason from '../pages/Admin/UpdateSeason.vue';
+import UpdateEpisode from '../pages/Admin/UpdateEpisode.vue';
 
 
 const routes = [
@@ -27,6 +30,10 @@ const routes = [
     { path: '/CreateAnime', name: 'CreateAnime', component: CreateAnime},
     { path: '/CreateSeason', name: 'CreateSeason', component: CreateSeason},
     { path: '/CreateEpisode', name: 'CreateEpisode', component: CreateEpisode},
+    { path: '/UpdateAnime/:name', name: 'UpdateAnime', component: UpdateAnime, props: true},
+    { path: '/UpdateSeason/:season', name: 'UpdateSeason', component: UpdateSeason, props: true},
+    { path: '/UpdateEpisode/:anime/:season/:name', name: 'UpdateEpisode', component: UpdateEpisode, props: true},
+
     
 
 ]
