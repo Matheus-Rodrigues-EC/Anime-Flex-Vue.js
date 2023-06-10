@@ -13,7 +13,7 @@ export default {
         }
     },
     methods: {
-        sendSignUp(e, adminName, adminPassword) {
+        createAdmin(e, adminName, adminPassword) {
             e.preventDefault();
             adminName = this.name;
             adminPassword = this.password;
@@ -42,7 +42,7 @@ export default {
 
 <template>
     <div class="cadastro" >
-        <form action="" @submit="sendSignUp" class="cadastro" >
+        <form action="" @submit="createAdmin" class="cadastro" >
             <label>Cadastrar Novo Administrador</label>
             <input type="text" required @change="e => this.name = e.target.value" placeholder="Admin Name" value="" />
             <input type="password" required @change="e => this.password = e.target.value" placeholder="Password" value="" />

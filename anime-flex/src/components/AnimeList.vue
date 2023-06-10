@@ -4,15 +4,14 @@ import axios from 'axios';
 export default {
     name: 'AnimeList',
     components: {
-
     },
     props: {
     },
     data() {
         return {
             AnimesList: [],
-            verifyAdmin: ''
-
+            verifyAdmin: '',
+            showConfirm: false
         }
     },
     created() {
@@ -39,6 +38,24 @@ export default {
             }else{
                 this.verifyAdmin = false;
             }
+        },
+        deleteAnime(id){
+            const token = localStorage.getItem('tokenAdmin');
+            axios.delete(`${import.meta.env.VITE_BASE_URL}/deleteAnime`, {
+                headers: {
+                    'Authorization': `Baerer ${token}`,
+                    'id': `${id}`
+                }
+            })
+            .then((res) => {
+                console.log(res.data);
+                this.getAnimes();
+                this.showConfirm = false;
+            })
+            .catch((error) =>{
+                console.log(error);
+                this.showConfirm = false;
+            })
         }
     }
 }
@@ -54,11 +71,24 @@ export default {
                     <p   class="anime_title">{{ Anime.Name }}</p>
                 </router-link>
                 <div v-if="this.verifyAdmin" class="Admin" >
-                        <button class="warning">Editar</button>
-                        <button class="danger">Deletar</button>
+                        <button class="warning" @click="() => this.$router.push(`/updateAnime/${Anime.Name}`)">Editar</button>
+                        <button class="danger" @click="() => this.showConfirm = true /*deleteAnime(Anime._id)*/" >Deletar</button>
+                </div>
+
+                <div class="ContainerBox" v-show="showConfirm">
+                    <div class="confirmBox">
+                        <div>
+                            <h2>Confirmar exclusão do anime ?</h2>
+                        </div>
+                        <div class="buttons">
+                            <button class="Cancel" @click="() => this.showConfirm = false">Cancelar</button>
+                            <button class="danger" @click="() => deleteAnime(Anime._id)" >Confirmar</button>
+                        </div>
+                    </div>
                 </div>
             </li>
         </ul>
+
     </div>
 </template>
 
@@ -66,10 +96,14 @@ export default {
 
 .Anime_List{
     width: 100%;
-    height: 100vh;
+    height: 75vh;
     margin: 150px auto 0 auto;
     display: flex;
     flex-wrap: wrap;
+    overflow-y: scroll;
+}
+.Anime_List::-webkit-scrollbar{
+    display: none;
 }
 
 ul{
@@ -134,6 +168,46 @@ button {
     font-size: 10px;
     background-color: #101010;
     transition: border-color, color .5s;
+}
+
+.ContainerBox{
+    height: 120%;
+    width:  100%;
+    background-color: #181818;
+    opacity: .95;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: esmaecer 1s;
+}
+
+.confirmBox{
+    display: flex;
+    flex-direction: column;
+    width: 450px;
+    height: 250px;
+    background-color: #000000;
+    color: #FFF;
+    opacity: 1;
+    z-index: 10;
+    border-radius: 15px;
+    justify-content: space-evenly;
+    animation: surgir 2s;
+}
+
+.buttons{
+    display: flex;
+    justify-content: space-evenly;
+    height: 35px;
+}
+
+:hover.Cancel{
+    border-color: #00AA00;
+    color: #00AA00;
 }
 
 </style>

@@ -1,10 +1,11 @@
 <script >
 import AnimeList from '../components/AnimeList.vue';
 
+
 export default {
     name: 'Home', 
     components: {
-        AnimeList
+        AnimeList,
     },
     props: {
         AnimeName: String
@@ -13,12 +14,17 @@ export default {
 </script>
 
 <template>
-    <div>
+    <div class="Container">
         <AnimeList />
     </div>
 </template>
 
 <style>
+
+.Container{
+    width: auto;
+    height: 75vh;
+}
 
 h1{
     margin: auto;

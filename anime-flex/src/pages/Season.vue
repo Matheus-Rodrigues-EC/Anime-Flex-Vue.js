@@ -7,7 +7,8 @@ export default {
         return {
             SeasonInfo: {},
             EpisodesList: [],
-            verifyAdmin: ''
+            verifyAdmin: '',
+            showConfirm: false
         }
     },
     props:{
@@ -22,6 +23,7 @@ export default {
         getSeason() {
             axios.get(`${import.meta.env.VITE_BASE_URL}/${this.name}/${this.season}`)
                 .then((res) => {
+                    console.log(res.data.Episodes)
                     this.SeasonInfo = res.data.Season;
                     this.EpisodesList = res.data.Episodes
                 })
@@ -36,6 +38,24 @@ export default {
             }else{
                 this.verifyAdmin = false;
             }
+        },
+        deleteEpisode(id){
+            const token = localStorage.getItem('tokenAdmin');
+            axios.delete(`${import.meta.env.VITE_BASE_URL}/deleteEpisode`, {
+                headers: {
+                    'Authorization': `Baerer ${token}`,
+                    'id': `${id}`
+                }
+            })
+            .then((res) => {
+                console.log(res.data);
+                this.getSeason();
+                this.showConfirm = false;
+            })
+            .catch((error) =>{
+                console.log(error);
+                this.showConfirm = false;
+            })
         }
     }
 }
@@ -54,8 +74,20 @@ export default {
                         <h4>{{ episode.Number }}. {{ episode.Name }}</h4>
                     </a>
                     <div v-if="this.verifyAdmin" class="Admin" >
-                        <button class="warning">Editar</button>
-                        <button class="danger">Deletar</button>
+                        <button class="warning" @click="() => this.$router.push(`/updateEpisode/${episode.Anime}/${episode.Season}/${episode.Name}`)">Editar</button>
+                        <button class="danger" @click="() => this.showConfirm = true">Deletar</button>
+                    </div>
+
+                    <div class="ContainerBox" v-show="showConfirm">
+                        <div class="confirmBox">
+                            <div>
+                                <h2>Confirmar exclusão do episódio ?</h2>
+                            </div>
+                            <div class="buttons">
+                                <button class="Cancel" @click="() => this.showConfirm = false">Cancelar</button>
+                                <button class="danger" @click="() => deleteEpisode(episode._id)" >Confirmar</button>
+                            </div>
+                        </div>
                     </div>
                 </li>
             </ul>
@@ -126,6 +158,44 @@ button {
     font-size: 10px;
     background-color: #101010;
     transition: border-color, color .5s;
+}
+
+.ContainerBox{
+    height: 100%;
+    width:  100%;
+    background-color: #181818;
+    opacity: .95;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: esmaecer 1s;
+}
+
+.confirmBox{
+    display: flex;
+    flex-direction: column;
+    width: 450px;
+    height: 250px;
+    background-color: #000000;
+    color: #FFF;
+    opacity: 1;
+    z-index: 10;
+    border-radius: 15px;
+    justify-content: space-evenly;
+    animation: surgir 2s;
+}
+.buttons{
+    display: flex;
+    justify-content: space-evenly;
+    height: 35px;
+}
+:hover.Cancel{
+    border-color: #00AA00;
+    color: #00AA00;
 }
 
 </style>
