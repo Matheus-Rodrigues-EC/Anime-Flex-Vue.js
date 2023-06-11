@@ -31,6 +31,7 @@ export default {
                     this.image = '';
                     this.email = '';
                     this.password = '';
+                    this.$router.push("/");
                 })
                 .catch((error) => {
                     console.log(error.response.data);
