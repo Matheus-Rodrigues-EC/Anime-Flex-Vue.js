@@ -97,8 +97,8 @@ export default {
 }
 
 .BannerImg{
-    width: 75%;
-    height: fit-content;
+    width: fit-content;
+    height: 250px;
     margin: 50px auto 0 auto;
     animation: esmaecer 1s;
 }
@@ -142,7 +142,7 @@ h4{
     flex-direction: row;
     width: 100%;
     justify-content: space-around;
-    margin: auto auto 5px auto;
+    margin: 25px auto 5px auto;
 }
 
 button {

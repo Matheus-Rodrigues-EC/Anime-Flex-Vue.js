@@ -71,7 +71,7 @@ export default {
                     this.Cover = '';
                     this.Url = '';
                     // console.log("Episode Cadastrado.");
-                    alert("Episode Cadastrado.");
+                    alert("Episode Atualizado.");
                     this.$router.push('/adminHome');
                 })
                 .catch((error) => {
