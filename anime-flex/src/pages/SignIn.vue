@@ -1,5 +1,6 @@
 <script>
 import axios from 'axios';
+import { useUserStore } from '../stores/userStore.js';
 
 export default {
     name: 'SignIn',
@@ -7,9 +8,11 @@ export default {
 
     },
     data() {
+        const useStore = useUserStore();
         return {
             email: '',
-            password: ''
+            password: '',
+            useStore
         }
     },
     methods:{
@@ -22,11 +25,14 @@ export default {
 
             axios.post(`${import.meta.env.VITE_BASE_URL}/signin`, body)
                 .then((res) => {
-                    localStorage.setItem("token", res.data.token);
+                    const User = JSON.stringify(res.data);
+                    localStorage.setItem("configuration", User);
+                    this.useStore.setUser(res.data.token, res.data.Name, res.data.Image, res.data.Email);
                     this.$router.push('/') 
                 })
                 .catch((error) => {
-                    console.log(error)
+                    // console.log(error)
+                    alert(error.response.data);
                 })
         }
     }

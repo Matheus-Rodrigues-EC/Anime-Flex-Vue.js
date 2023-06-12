@@ -1,27 +1,29 @@
 <script>
 import axios from 'axios';
+import { useAdminStore } from '../../stores/userStore.js';
 
 export default {
     name: 'AdminHome',
     data() {
+        const AdminStore = useAdminStore();
         return{
-            verifytoken: '',
             listAdmins: [],
             listMembers: [],
             showConfirmAdmin: false,
-            showConfirmBan: false
+            showConfirmBan: false,
+            AdminStore
         }
     },
     created() {
         this.verify();
     },
     methods: {
-        verify(){
-            this.verifytoken = localStorage.getItem('tokenAdmin');
-            if(!this.verifytoken) this.$router.push('/');
+        verify(){ 
+            if(!this.AdminStore.isLogged) this.$router.push('/');
+            
         },
         getAdminsList() {
-            const token = localStorage.getItem('tokenAdmin');
+            const token = this.AdminStore.adminToken;
             axios.get(`${import.meta.env.VITE_BASE_URL}/getadmins`, {
                 headers: {
                     'Authorization': `Baerer ${token}` 
@@ -31,11 +33,11 @@ export default {
                     this.listAdmins = res.data;
                 })
                 .catch((error) => {
-                    alert(error);
+                    alert(error.response.data);
                 })
         },
         deleteAdmin(name){
-            const token = localStorage.getItem('tokenAdmin');   
+            const token = this.AdminStore.adminToken;   
             axios.delete(`${import.meta.env.VITE_BASE_URL}/deleteAdmin`, {
                 headers: {
                     'Authorization': `Baerer ${token}`,
@@ -43,7 +45,8 @@ export default {
                 }
             })
                 .then((res) => {
-                    console.log(res.data);
+                    // console.log(res.data);
+                    alert(res.data);
                     this.getAdminsList();
                     this.showConfirmAdmin = false;
                 })
@@ -53,7 +56,7 @@ export default {
                 })
         },
         getMembersList(){
-            const token = localStorage.getItem('tokenAdmin');
+            const token = this.AdminStore.adminToken;
             axios.get(`${import.meta.env.VITE_BASE_URL}/getMembers`, {
                 headers: {
                     'Authorization': `Baerer ${token}` 
@@ -63,11 +66,11 @@ export default {
                     this.listMembers = res.data;
                 })
                 .catch((error) => {
-                    alert(error);
+                    alert(error.response.data);
                 })
         },
         banMember(name){
-            const token = localStorage.getItem('tokenAdmin');   
+            const token = this.AdminStore.adminToken;   
             axios.delete(`${import.meta.env.VITE_BASE_URL}/banMember`, {
                 headers: {
                     'Authorization': `Baerer ${token}`,
@@ -75,7 +78,8 @@ export default {
                 }
             })
                 .then((res) => {
-                    console.log(res.data);
+                    // console.log(res.data);
+                    alert(res.data);
                     this.getMembersList();
                     this.showConfirmBan = false;
                 })

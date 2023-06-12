@@ -1,15 +1,94 @@
 <script >
+import axios from 'axios';
+import { useUserStore, useAdminStore } from '../stores/userStore.js';
+
 export default {
-    name: 'Navbar'
+    name: 'Navbar',
+    data(){
+        const UserStore = useUserStore();
+        const AdminStore = useAdminStore();
+        return{
+            AdminName: '',
+            UserName: '',
+            UserStore,
+            AdminStore
+        }
+    },
+    created() {
+        // console.log(this.AdminStore.adminName)
+    },
+    mounted(){
+        this.verifyAdmin();
+        this.verifyMember();
+    },
+    methods: {
+        verifyAdmin(){
+            const conf = localStorage.getItem('Master');
+            if(conf) {
+                const Admin = JSON.parse(conf);
+                this.AdminStore.setAdmin(Admin.token, Admin.adminName,);
+                this.AdminStore.showName;
+            }
+        },
+        verifyMember(){
+            const conf = localStorage.getItem('configuration');
+            if(conf) {
+                const User = JSON.parse(conf)
+                this.UserStore.setUser(User.token, User.Name, User.Image, User.Email);
+                console.log(User)
+            }
+        },
+        logOut(){
+            const token = this.UserStore.userToken;
+            axios.delete(`${import.meta.env.VITE_BASE_URL}/logout`, {
+                headers: {
+                    'Authorization': `Baerer ${token}`
+                }
+            })
+                .then((res) => {
+                    this.UserName = '';
+                    localStorage.removeItem('configuration');
+                    this.UserStore.clearUser();
+                })
+                .catch((error) => {
+                    alert(error);
+                })
+        },
+        logOutAdmin(){
+            const token = this.AdminStore.adminToken;
+            axios.delete(`${import.meta.env.VITE_BASE_URL}/logoutAdmin`, {
+                headers: {
+                    'Authorization': `Baerer ${token}`
+                }
+            })
+                .then((res) => {
+                    alert(res.data);
+                    localStorage.removeItem('Master');
+                    this.AdminStore.clearAdmin();
+                    this.$router.push('/admin');
+                })
+                .catch((error) => {
+                    alert(error);
+                })
+        }
+    }
 }
 </script>
 
 <template>
     <div class="header">
         <router-link to="/">Home</router-link>
-        <div class="account">
+        <div v-if="this.AdminStore.adminName" class="account">
+            <p>Bem Vindo, Mestre {{ this.AdminStore.adminName }}</p>
+            <p @click="() => logOutAdmin()" >Desconectar</p>
+        </div>
+        <div v-else-if="this.UserStore.userName" class="account">
+            <p>Bem Vindo, {{ this.UserStore.userName }}</p>
+            <p @click="() => logOut()" >Sair</p>
+        </div>
+        <div v-else class="account">
             <router-link to="/signin">Entrar</router-link>
-            <router-link to="/signup">Cadastrar-se</router-link> 
+            <router-link to="/signup">Cadastrar-se</router-link>
         </div>
     </div>
 </template>
@@ -35,10 +114,13 @@ export default {
 .account {
     display: flex;
     gap: 15px;
+    cursor: pointer;
 }
 
 router-link{
     cursor: pointer;
 }
+
+
 
 </style>

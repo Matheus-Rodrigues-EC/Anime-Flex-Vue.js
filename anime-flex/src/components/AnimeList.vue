@@ -1,5 +1,6 @@
 <script>
 import axios from 'axios';
+import { useAdminStore } from '../stores/userStore.js'
 
 export default {
     name: 'AnimeList',
@@ -8,15 +9,15 @@ export default {
     props: {
     },
     data() {
+        const AdminStore = useAdminStore();
         return {
             AnimesList: [],
-            verifyAdmin: '',
-            showConfirm: false
+            showConfirm: false,
+            AdminStore
         }
     },
     created() {
         this.getAnimes();
-        this.adminOn();
     },
     methods: {
         getAnimes() {
@@ -31,16 +32,8 @@ export default {
         AnimeName(name){
             this.$emit("NameAnime", name);
         },
-        adminOn(){
-            const admin = localStorage.getItem('tokenAdmin');
-            if(admin){
-                this.verifyAdmin = true;
-            }else{
-                this.verifyAdmin = false;
-            }
-        },
         deleteAnime(id){
-            const token = localStorage.getItem('tokenAdmin');
+            const token = this.AdminStore.adminToken;
             axios.delete(`${import.meta.env.VITE_BASE_URL}/deleteAnime`, {
                 headers: {
                     'Authorization': `Baerer ${token}`,
@@ -70,7 +63,7 @@ export default {
                     <img class="cover" :src="Anime.Cover" />
                     <p   class="anime_title">{{ Anime.Name }}</p>
                 </router-link>
-                <div v-if="this.verifyAdmin" class="Admin" >
+                <div v-if="this.AdminStore.isLogged" class="Admin" >
                         <button class="warning" @click="() => this.$router.push(`/updateAnime/${Anime.Name}`)">Editar</button>
                         <button class="danger" @click="() => this.showConfirm = true /*deleteAnime(Anime._id)*/" >Deletar</button>
                 </div>

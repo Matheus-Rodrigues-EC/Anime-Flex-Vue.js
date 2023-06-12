@@ -1,5 +1,6 @@
 <script>
 import axios from 'axios';
+import { useAdminStore } from '../../stores/userStore.js';
 
 export default {
     name: 'CreateSeason',
@@ -12,6 +13,7 @@ export default {
         name: ''
     },
     data() {
+        const AdminStore = useAdminStore();
         return {
             Id: '',
             Anime: '', 
@@ -19,7 +21,8 @@ export default {
             Name: '',
             Number: '',
             Cover: '', 
-            Url: ''
+            Url: '', 
+            AdminStore
         }
     },
     created(){
@@ -41,7 +44,7 @@ export default {
                     console.log(error.response.data);
                 })
         },
-        createEpisode(e, id, anime, season_name, episode_name, episode_number, episode_cover, url) {
+        updateEpisode(e, id, anime, season_name, episode_name, episode_number, episode_cover, url) {
             e.preventDefault();
             id = this.Id;
             anime = this.Anime;
@@ -52,7 +55,7 @@ export default {
             url = this.Url
 
             const body = {anime, season_name, episode_name, episode_number, episode_cover, url};
-            const token = localStorage.getItem('tokenAdmin');
+            const token = this.AdminStore.adminToken;
 
             axios.put(`${import.meta.env.VITE_BASE_URL}/updateEpisode`, body, {
                 headers: {
@@ -61,17 +64,19 @@ export default {
                 }
             })
                 .then((res) => {
-                    console.log("Episode Cadastrado.");
                     this.Anime = '';
                     this.Season = '';
                     this.Name = '';
                     this.Number = '';
                     this.Cover = '';
                     this.Url = '';
+                    // console.log("Episode Cadastrado.");
+                    alert("Episode Cadastrado.");
                     this.$router.push('/adminHome');
                 })
                 .catch((error) => {
-                    console.log(error.response.data);
+                    // console.log(error.response.data);
+                    alert(error.response.data);
                 })
         }
     }
@@ -80,7 +85,7 @@ export default {
 
 <template>
     <div class="cadastro" >
-        <form action="" @submit="createEpisode" class="cadastro" >
+        <form action="" @submit="updateEpisode" class="cadastro" >
             <img class="preview" :src="this.Cover" alt="Esperando Imagem..."/>
             <input type="text" required @change="e => this.Anime = e.target.value" placeholder="Nome do Anime" :value="this.Anime" />
             <input type="text" required @change="e => this.Season = e.target.value" placeholder="Nome da Temporada" :value="this.Season" />

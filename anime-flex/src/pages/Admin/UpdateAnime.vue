@@ -1,6 +1,6 @@
 <script>
 import axios from 'axios';
-import { ref } from 'vue';
+import { useAdminStore } from '../../stores/userStore.js';
 
 export default {
     name: 'UpdateAnime',
@@ -11,10 +11,12 @@ export default {
         name: ''
     },
     data() {
+        const AdminStore = useAdminStore();
         return {
             Id: '',
             Cover: '',
-            Name: ''
+            Name: '',
+            AdminStore
         }
     },
     created() {
@@ -37,10 +39,9 @@ export default {
             id = this.Id;
             cover = this.Cover;
             name = this.Name;
-            console.log(name);
 
             const body = {cover, name};
-            const token = localStorage.getItem('tokenAdmin');
+            const token = this.AdminStore.adminToken;
 
             axios.put(`${import.meta.env.VITE_BASE_URL}/updateAnime`, body, {
                 headers: {
@@ -49,11 +50,13 @@ export default {
                 }
             })
                 .then((res) => {
-                    console.log("Anime Atualizado.");
+                    // console.log("Anime Atualizado.");
+                    alert("Anime Atualizado.");
                     this.$router.push('/');
                 })
                 .catch((error) => {
-                    console.log(error);
+                    // console.log(error);
+                    console.log(error.response.data);
                 })
         }
     }

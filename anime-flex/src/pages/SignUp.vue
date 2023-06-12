@@ -26,7 +26,8 @@ export default {
 
             axios.post(`${import.meta.env.VITE_BASE_URL}/signup`, body)
                 .then((res) => {
-                    console.log("Membro cadastrado.");
+                    // console.log("Membro cadastrado.");
+                    alert("Cadastro realizado com sucesso.");
                     this.name = '';
                     this.image = '';
                     this.email = '';
@@ -34,7 +35,8 @@ export default {
                     this.$router.push("/");
                 })
                 .catch((error) => {
-                    console.log(error.response.data);
+                    // console.log(error.response.data);
+                    alert(error.response.data);
                 })
         }
     }

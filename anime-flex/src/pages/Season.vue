@@ -1,14 +1,16 @@
 <script>
 import axios from 'axios';
+import { useAdminStore } from '../stores/userStore.js'
 
 export default {
     name: 'Season',
     data() {
+        const AdminStore = useAdminStore();
         return {
             SeasonInfo: {},
             EpisodesList: [],
-            verifyAdmin: '',
-            showConfirm: false
+            showConfirm: false,
+            AdminStore
         }
     },
     props:{
@@ -17,13 +19,11 @@ export default {
     },
     created(){
         this.getSeason();
-        this.adminOn();
     },
     methods:{
         getSeason() {
             axios.get(`${import.meta.env.VITE_BASE_URL}/${this.name}/${this.season}`)
                 .then((res) => {
-                    console.log(res.data.Episodes)
                     this.SeasonInfo = res.data.Season;
                     this.EpisodesList = res.data.Episodes
                 })
@@ -31,16 +31,8 @@ export default {
                     console.log(error.response.data);
                 })
         },
-        adminOn(){
-            const admin = localStorage.getItem('tokenAdmin');
-            if(admin){
-                this.verifyAdmin = true;
-            }else{
-                this.verifyAdmin = false;
-            }
-        },
         deleteEpisode(id){
-            const token = localStorage.getItem('tokenAdmin');
+            const token = this.AdminStore.adminToken;
             axios.delete(`${import.meta.env.VITE_BASE_URL}/deleteEpisode`, {
                 headers: {
                     'Authorization': `Baerer ${token}`,
@@ -48,7 +40,8 @@ export default {
                 }
             })
             .then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
+                alert(res.data);
                 this.getSeason();
                 this.showConfirm = false;
             })
@@ -73,7 +66,7 @@ export default {
                     <a :href="episode.URL" target="_blank">
                         <h4>{{ episode.Number }}. {{ episode.Name }}</h4>
                     </a>
-                    <div v-if="this.verifyAdmin" class="Admin" >
+                    <div v-if="this.AdminStore.isLogged" class="Admin" >
                         <button class="warning" @click="() => this.$router.push(`/updateEpisode/${episode.Anime}/${episode.Season}/${episode.Name}`)">Editar</button>
                         <button class="danger" @click="() => this.showConfirm = true">Deletar</button>
                     </div>

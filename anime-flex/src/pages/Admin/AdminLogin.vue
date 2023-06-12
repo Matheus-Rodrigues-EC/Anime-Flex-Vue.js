@@ -1,12 +1,15 @@
 <script>
 import axios from 'axios';
+import { useAdminStore } from '../../stores/userStore.js'
 
 export default {
     name: 'AdminLogin',
     data() {
+        const useStore = useAdminStore();
         return {
             name: '',
-            password: ''
+            password: '',
+            useStore
         }
     },
     methods: {
@@ -19,12 +22,14 @@ export default {
 
             axios.post(`${import.meta.env.VITE_BASE_URL}/admlogin`, body)
                 .then((res) => {
-                    console.log(res.data);
-                    localStorage.setItem("tokenAdmin", res.data.token);
+                    const Master = JSON.stringify(res.data);
+                    localStorage.setItem("Master", Master);
+                    this.useStore.setAdmin(res.data.token, res.data.adminName);
                     this.$router.push('/adminHome'); 
                 })
                 .catch((error) => {
-                    console.log(error)
+                    // console.log(error)
+                    alert(error.response.data)
                 })
         }
     }

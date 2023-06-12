@@ -1,5 +1,7 @@
 <script>
 import axios from 'axios';
+import { useAdminStore } from '../../stores/userStore.js';
+
 export default {
     name: 'UpdateSeason',
     components: {
@@ -9,12 +11,14 @@ export default {
         season: ''
     },
     data() {
+        const AdminStore = useAdminStore();
         return {
             Id: '',
             Anime: '', 
             Season: '', 
             Cover: '', 
-            Name: ''
+            Name: '',
+            AdminStore
         }
     },
     created() {
@@ -43,7 +47,7 @@ export default {
             season_name = this.Name;
 
             const body = {id, anime, n_Season, season_cover, season_name};
-            const token = localStorage.getItem('tokenAdmin');
+            const token = this.AdminStore.adminToken;
 
             axios.put(`${import.meta.env.VITE_BASE_URL}/updateSeason`, body, {
                 headers: {
@@ -52,15 +56,17 @@ export default {
                 }
             })
                 .then((res) => {
-                    console.log("Season Atualizada.");
                     this.Anime = '';
                     this.Season = '';
                     this.Cover = '';
                     this.Name = '';
+                    // console.log("Season Atualizada.");
+                    alert("Season Atualizada.");
                     this.$router.push('/');
                 })
                 .catch((error) => {
-                    console.log(error.response.data);
+                    // console.log(error.response.data);
+                    alert(error.response.data);
                 })
         }
     }

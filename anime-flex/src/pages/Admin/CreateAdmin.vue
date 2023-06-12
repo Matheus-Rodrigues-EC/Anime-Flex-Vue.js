@@ -1,5 +1,6 @@
 <script>
 import axios from 'axios';
+import { useAdminStore } from '../../stores/userStore.js';
 
 export default {
     name: 'CreateAdmin',
@@ -7,9 +8,11 @@ export default {
 
     },
     data() {
+        const AdminStore = useAdminStore();
         return {
             name: '',
-            password: ''
+            password: '',
+            AdminStore
         }
     },
     methods: {
@@ -19,7 +22,7 @@ export default {
             adminPassword = this.password;
 
             const body = {adminName, adminPassword};
-            const token = localStorage.getItem('tokenAdmin');
+            const token = this.AdminStore.adminToken;
 
             axios.post(`${import.meta.env.VITE_BASE_URL}/createAdmin`, body, {
                 headers: {
@@ -27,13 +30,15 @@ export default {
                 }
             })
                 .then((res) => {
-                    console.log("Administrador Cadastrado.");
                     this.name = '';
                     this.password = '';
+                    // console.log("Administrador Cadastrado.");
+                    alert("Administrador Cadastrado.");
                     this.$router.push('/adminHome');
                 })
                 .catch((error) => {
-                    console.log(error.response.data);
+                    // console.log(error.response.data);
+                    alert(error.response.data)
                 })
         }
     }

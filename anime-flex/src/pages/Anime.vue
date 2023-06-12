@@ -1,15 +1,16 @@
 <script >
 import axios from 'axios';
-// import ServiceTest from '../services/services.js';
+import { useAdminStore } from '../stores/userStore.js';
 
 export default {
     name: 'Anime',
     data() {
+        const AdminStore = useAdminStore();
         return {
             anime: {},
             seasons: [],
-            verifyAdmin: '',
-            showConfirm: false
+            showConfirm: false,
+            AdminStore
         }
     },
     props: {
@@ -17,7 +18,6 @@ export default {
     },
     created() {
         this.getAnimeInfo();
-        this.adminOn();
     },
     mounted(){
     },
@@ -34,16 +34,8 @@ export default {
                     console.log(error.response.data);
                 })
         },
-        adminOn(){
-            const admin = localStorage.getItem('tokenAdmin');
-            if(admin){
-                this.verifyAdmin = true;
-            }else{
-                this.verifyAdmin = false;
-            }
-        },
         deleteSeason(id){
-            const token = localStorage.getItem('tokenAdmin');
+            const token = this.AdminStore.adminToken;
             axios.delete(`${import.meta.env.VITE_BASE_URL}/deleteSeason`, {
                 headers: {
                     'Authorization': `Baerer ${token}`,
@@ -76,7 +68,7 @@ export default {
                     <router-link :to="'/'+anime.Name+'/'+season.Name">
                         <h4 class="TitleSeason">Season {{ season.Season }} - {{ season.Name }}</h4>
                     </router-link>
-                    <div v-if="this.verifyAdmin" class="Admin" >
+                    <div v-if="this.AdminStore.isLogged" class="Admin" >
                         <button class="warning" @click="() => this.$router.push(`/updateSeason/${season.Name}`)">Editar</button>
                         <button class="danger" @click="() => this.showConfirm = true">Deletar</button>
                     </div>
