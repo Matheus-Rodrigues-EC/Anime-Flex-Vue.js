@@ -79,7 +79,7 @@ export default {
     <div class="header">
         <router-link to="/">Home</router-link>
         <div v-if="this.AdminStore.adminName" class="account">
-            <p>Bem Vindo, Mestre {{ this.AdminStore.adminName }}</p>
+            <p @click="() => this.$router.push('/adminHome')">Bem Vindo, Mestre {{ this.AdminStore.adminName }}</p>
             <p @click="() => logOutAdmin()" >Desconectar</p>
         </div>
         <div v-else-if="this.UserStore.userName" class="account">

@@ -75,6 +75,7 @@ input{
   border-radius: 15px;
   box-sizing: border-box;
   animation: surgir 1s;
+  margin: 0 auto;
 }
 
 button {

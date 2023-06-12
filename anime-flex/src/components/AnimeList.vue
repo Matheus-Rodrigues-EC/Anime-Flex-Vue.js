@@ -131,6 +131,7 @@ li:hover {
 
 li .cover {
     width: fit-content;
+    max-width: 90%;
     height: 7rem;
     border-radius: 15px;
     margin: 10px;
