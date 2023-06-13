@@ -9,7 +9,8 @@ export const useUserStore = defineStore('user', {
             userId: ref(''),
             userName: ref(''),
             userImage: ref(''),
-            userEmail: ref('')
+            userEmail: ref(''),
+            isLogged: ref(false)
         }
     },
 
@@ -20,12 +21,14 @@ export const useUserStore = defineStore('user', {
             this.userName = name;
             this.userImage = image;
             this.userEmail = email;
+            this.isLogged = true;
         },
         clearUser(){
             this.userToken = '';
             this.userName = '';
             this.userImage = '';
             this.userEmail = '';
+            this.isLogged = false;
         }
     },
 

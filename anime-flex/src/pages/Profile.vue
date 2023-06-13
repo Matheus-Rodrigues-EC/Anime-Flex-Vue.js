@@ -12,8 +12,13 @@ export default {
             showConfirm: false,
 
             name: '',
-            image: ''
+            image: '',
+
+            favorites: []
         }
+    },
+    created(){
+        this.getFavorites();
     },
     methods:{
         getInfoProfile(){
@@ -59,6 +64,38 @@ export default {
                 .catch((error) => {
                     alert(error)
                 })
+        },
+        getFavorites(){
+            const token = this.UserStore.userToken;
+            axios.get(`${import.meta.env.VITE_BASE_URL}/favoritesList`,{
+                headers: {
+                    'Authorization': `Baerer ${token}` 
+                }
+            })
+                .then((res) => {
+                    // console.log(res.data);
+                    this.favorites = res.data
+                })
+                .catch((error) => {
+                    alert(error)
+                })
+        }, 
+        deleteFavorite(anime_name){
+            const token = this.UserStore.userToken;
+            const Name = anime_name ;
+            axios.delete(`${import.meta.env.VITE_BASE_URL}/desfavoritar`, {
+                headers: {
+                    'Authorization': `Baerer ${token}`,
+                    'Name': `${Name}`
+                }
+            })
+            .then((res) => {
+                alert(res.data);
+                this.getFavorites();
+            })
+            .catch((error) =>{
+                alert(error.response.data);
+            })
         }
     }
 
@@ -81,9 +118,18 @@ export default {
             <h2>Olá, {{ this.UserStore.userName }}.</h2>
             <label>Email: {{ this.UserStore.userEmail }}</label>
             <div class="buttons">
-                <button>Favoritos</button>
+                <button @click="() => this.getFavorites()" >Favoritos</button>
                 <button class="warning" @click="() => {this.editing = true, this.getInfoProfile()}">Editar Perfil</button>
                 <button class="danger" @click="() => this.showConfirm = true">Excluir Conta</button>
+            </div>
+            <div class="list" >
+                <p v-if="this.favorites.length === 0">Você não possui nenhum anime favoritado</p>
+                <ul v-else>
+                    <li v-for="(favorito) in favorites" :key="favorito._id" @click="() => null" >
+                        <p>{{ favorito.Anime }}</p>
+                        <button class="desfavoritar" @click="() => this.deleteFavorite(favorito.Anime)" alt="Remover dos Favoritos">S/2</button>
+                    </li>
+                </ul>
             </div>
         </div>
         
@@ -126,6 +172,35 @@ img{
     display: flex;
     gap: 15px;
     animation: surgir 2s;
+}
+
+.list{
+    width: 100%;
+    border: 1px solid #070707;
+    border-radius: 15px;
+    background-color: #181818;
+}
+
+ul{
+    list-style-type: none;
+    padding: 0;
+}
+
+li{
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+}
+
+.desfavoritar{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    padding: 0;
+    border-color: #AA0000;
+    font-size: 10px;
 }
 
 .EditOn{

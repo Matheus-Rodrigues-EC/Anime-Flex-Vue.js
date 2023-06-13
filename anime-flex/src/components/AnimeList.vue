@@ -1,19 +1,17 @@
 <script>
 import axios from 'axios';
-import { useAdminStore } from '../stores/userStore.js'
+import { useUserStore, useAdminStore } from '../stores/userStore.js'
 
 export default {
     name: 'AnimeList',
-    components: {
-    },
-    props: {
-    },
     data() {
         const AdminStore = useAdminStore();
+        const UserStore = useUserStore();
         return {
             AnimesList: [],
             showConfirm: false,
-            AdminStore
+            AdminStore,
+            UserStore
         }
     },
     created() {
@@ -49,6 +47,21 @@ export default {
                 console.log(error);
                 this.showConfirm = false;
             })
+        }, 
+        addFavorite(anime_name){
+            const token = this.UserStore.userToken;
+            const body = { Name: anime_name };
+            axios.post(`${import.meta.env.VITE_BASE_URL}/favoritar`, body, {
+                headers: {
+                    'Authorization': `Baerer ${token}`,
+                }
+            })
+            .then((res) => {
+                alert(res.data)
+            })
+            .catch((error) =>{
+                alert(error.response.data);
+            })
         }
     }
 }
@@ -61,8 +74,9 @@ export default {
             <li @click="() => AnimeName(Anime.Name)" class="Anime_Item" v-for="(Anime) in this.AnimesList" :key="Anime._id" >
                 <router-link :to="'/anime/'+Anime.Name">
                     <img class="cover" :src="Anime.Cover" />
-                    <p   class="anime_title">{{ Anime.Name }}</p>
+                    <p   class="anime_title">{{ Anime.Name }}  </p>
                 </router-link>
+                <button class="favoriteTrue" v-if="this.UserStore.isLogged" @click="() => addFavorite(Anime.Name)">S2</button>
                 <div v-if="this.AdminStore.isLogged" class="Admin" >
                         <button class="warning" @click="() => this.$router.push(`/updateAnime/${Anime.Name}`)">Editar</button>
                         <button class="danger" @click="() => this.showConfirm = true /*deleteAnime(Anime._id)*/" >Deletar</button>
@@ -144,6 +158,16 @@ li .anime_title{
     align-items: center;
     justify-content: center;
     margin: 30px auto;
+}
+
+li .favoriteTrue{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin: auto;
+    padding: 0;
+    /* background-color: #AA0000; */
+    border-color: #AA0000;
 }
 
 .Admin{
