@@ -14,20 +14,22 @@ export default {
             Season: '', 
             Name: '',
             Number: '',
+            Cover: '', 
             Url: '',
             AdminStore
         }
     },
     methods: {
-        createEpisode(e, anime, season_name, episode_name, episode_number, url) {
+        createEpisode(e, anime, season_name, episode_name, episode_number, episode_cover, url) {
             e.preventDefault();
             anime = this.Anime, 
             season_name = this.Season, 
             episode_name = this.Name, 
             episode_number = this.Number, 
+            episode_cover = this.Cover, 
             url = this.Url
 
-            const body = {anime, season_name, episode_name, episode_number, url};
+            const body = {anime, season_name, episode_name, episode_number, episode_cover, url};
             const token = this.AdminStore.adminToken;
 
             axios.post(`${import.meta.env.VITE_BASE_URL}/createEpisode`, body, {
@@ -40,6 +42,7 @@ export default {
                     this.Season = '';
                     this.Name = '';
                     this.Number = '';
+                    this.Cover = '';
                     this.Url = '';
                     // console.log("Episode Cadastrado.");
                     alert("Episode Cadastrado.");
