@@ -15,13 +15,50 @@ export default {
             image: ''
         }
     },
-    created(){
-
-    },
     methods:{
         getInfoProfile(){
             this.name = this.UserStore.userName;
             this.image = this.UserStore.userImage;
+        },
+        updateProfile(id, name, image){
+            id = this.UserStore.userId;
+            name = this.name;
+            image = this.image;
+            const token = this.UserStore.userToken;
+            const body = { name, image };
+            axios.put(`${import.meta.env.VITE_BASE_URL}/updateMember`, body, {
+                headers: {
+                    'Authorization': `Baerer ${token}`,
+                    'Id': `${id}`
+                }
+            })
+                .then((res) => {
+                    const User = JSON.stringify(res.data);
+                    localStorage.setItem("configuration", User);
+                    this.UserStore.setUser(res.data.token, res.data.Id, res.data.Name, res.data.Image, res.data.Email);
+                    this.editing = false;
+                })
+                .catch((error) => {
+                    alert(error);
+                })
+            // alert(token);
+        },
+        deleteAccount(){
+            const token = this.UserStore.userToken;
+            axios.delete(`${import.meta.env.VITE_BASE_URL}/unsubscribe`,{
+                headers: {
+                    'Authorization': `Baerer ${token}` 
+                }
+            })
+                .then((res) => {
+                    alert("Conta Deletada");
+                    this.UserStore.clearUser();
+                    localStorage.removeItem('configuration');
+                    this.$router.push('/');
+                })
+                .catch((error) => {
+                    alert(error)
+                })
         }
     }
 
@@ -32,11 +69,11 @@ export default {
     <div class="Container">
         <div class="EditOn" v-if="editing">
             <img :src="this.image" />
-            <input placeholder="Url da Imagem" :value="this.image" />
-            <input placeholder="Nome de Usuário" :value="this.name" />
+            <input placeholder="Url da Imagem" @change="(e) => this.image = e.target.value" :value="this.image" />
+            <input placeholder="Nome de Usuário" @change="(e) => this.name = e.target.value" :value="this.name" />
             <div class="buttons">
                 <button class="Cancel" @click="() => this.editing = false">Cancelar</button>
-                <button class="warning" @click="() => {null}" >Confirmar</button>
+                <button class="warning" @click="() => updateProfile()" >Confirmar</button>
             </div>
         </div>
         <div class="Infos" v-else>
@@ -58,7 +95,7 @@ export default {
                 </div>
                 <div class="buttons">
                     <button class="Cancel" @click="() => this.showConfirm = false">Cancelar</button>
-                    <button class="danger" @click="() => null" >Confirmar</button>
+                    <button class="danger" @click="() => deleteAccount()" >Confirmar</button>
                 </div>
             </div>
         </div>

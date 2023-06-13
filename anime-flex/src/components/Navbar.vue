@@ -15,7 +15,8 @@ export default {
         }
     },
     created() {
-        // console.log(this.AdminStore.adminName)
+        this.verifyAdmin();
+        this.verifyMember();
     },
     mounted(){
         this.verifyAdmin();
@@ -34,8 +35,7 @@ export default {
             const conf = localStorage.getItem('configuration');
             if(conf) {
                 const User = JSON.parse(conf)
-                this.UserStore.setUser(User.token, User.Name, User.Image, User.Email);
-                // console.log(User)
+                this.UserStore.setUser(User.token, User.Id, User.Name, User.Image, User.Email);
             }
         },
         logOut(){
@@ -84,7 +84,7 @@ export default {
             <p @click="() => logOutAdmin()" >Desconectar</p>
         </div>
         <div v-else-if="this.UserStore.userName" class="account">
-            <p @click="this.$router.push(`/profile/${this.UserStore.userName}`)" >Bem Vindo, {{ this.UserStore.userName }}</p>
+            <p @click="this.$router.push(`/profile/${this.UserStore.userName}`)" >Bem Vindo, {{ this.UserStore.showName }}</p>
             <p @click="() => logOut()" >Sair</p>
         </div>
         <div v-else class="account">

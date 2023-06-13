@@ -32,7 +32,7 @@ export default {
                     this.image = '';
                     this.email = '';
                     this.password = '';
-                    this.$router.push("/");
+                    this.$router.push("/signin");
                 })
                 .catch((error) => {
                     // console.log(error.response.data);
