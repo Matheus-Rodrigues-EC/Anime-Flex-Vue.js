@@ -27,8 +27,9 @@ export default {
                 .then((res) => {
                     const User = JSON.stringify(res.data);
                     localStorage.setItem("configuration", User);
-                    this.useStore.setUser(res.data.token, res.data.Name, res.data.Image, res.data.Email);
-                    this.$router.push('/') 
+                    this.useStore.setUser(res.data.token, res.data.Id, res.data.Name, res.data.Image, res.data.Email);
+                    console.log(res.data)
+                    this.$router.push('/');
                 })
                 .catch((error) => {
                     // console.log(error)

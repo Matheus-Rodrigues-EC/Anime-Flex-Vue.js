@@ -63,9 +63,9 @@ export default {
         <div class="ContainerList">
             <ul class="List">
                 <li v-for="(episode) in EpisodesList" :key="episode._id">
-                    <a :href="episode.URL" target="_blank">
+                    <router-link :to="(`/${this.name}/${this.season}/${episode.Name}`)" >
                         <h4>{{ episode.Number }}. {{ episode.Name }}</h4>
-                    </a>
+                    </router-link>
                     <div v-if="this.AdminStore.isLogged" class="Admin" >
                         <button class="warning" @click="() => this.$router.push(`/updateEpisode/${episode.Anime}/${episode.Season}/${episode.Name}`)">Editar</button>
                         <button class="danger" @click="() => this.showConfirm = true">Deletar</button>

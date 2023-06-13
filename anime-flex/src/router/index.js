@@ -4,6 +4,8 @@ import SignUp from '../pages/SignUp.vue';
 import Home from '../pages/Home.vue';
 import Anime from '../pages/Anime.vue';
 import Season from '../pages/Season.vue';
+import Episode from '../pages/Episode.vue';
+import Profile from '../pages/Profile.vue';
 
 import AdminLogin from '../pages/Admin/AdminLogin.vue';
 import AdminHome from '../pages/Admin/AdminHome.vue';
@@ -16,12 +18,15 @@ import UpdateSeason from '../pages/Admin/UpdateSeason.vue';
 import UpdateEpisode from '../pages/Admin/UpdateEpisode.vue';
 
 
+
 const routes = [
     { path: '/', name: 'Home', component: Home},
     { path: '/signin', name: 'SignIn', component: SignIn},
     { path: '/signup', name: 'SignUp', component: SignUp},
     { path: '/anime/:name', name: 'Anime', component: Anime, props: true},
     { path: '/:name/:season', name: 'Season', component: Season, props: true},
+    { path: '/:name/:season/:episode', name: 'Episode', component: Episode, props: true},
+    { path: '/profile/:user', name: 'Profile', component: Profile },
 
 //  Admin Routes
     { path: '/admin', name: 'AdminLogin', component: AdminLogin},

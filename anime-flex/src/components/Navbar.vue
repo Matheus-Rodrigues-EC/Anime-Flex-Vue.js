@@ -35,7 +35,7 @@ export default {
             if(conf) {
                 const User = JSON.parse(conf)
                 this.UserStore.setUser(User.token, User.Name, User.Image, User.Email);
-                console.log(User)
+                // console.log(User)
             }
         },
         logOut(){
@@ -49,6 +49,7 @@ export default {
                     this.UserName = '';
                     localStorage.removeItem('configuration');
                     this.UserStore.clearUser();
+                    this.$router.push('/')
                 })
                 .catch((error) => {
                     alert(error);
@@ -83,7 +84,7 @@ export default {
             <p @click="() => logOutAdmin()" >Desconectar</p>
         </div>
         <div v-else-if="this.UserStore.userName" class="account">
-            <p>Bem Vindo, {{ this.UserStore.userName }}</p>
+            <p @click="this.$router.push(`/profile/${this.UserStore.userName}`)" >Bem Vindo, {{ this.UserStore.userName }}</p>
             <p @click="() => logOut()" >Sair</p>
         </div>
         <div v-else class="account">

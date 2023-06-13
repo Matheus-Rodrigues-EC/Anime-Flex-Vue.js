@@ -6,15 +6,17 @@ export const useUserStore = defineStore('user', {
     state(){
         return {
             userToken: ref(''),
-            userName: '',
+            userId: ref(''),
+            userName: ref(''),
             userImage: ref(''),
             userEmail: ref('')
         }
     },
 
     actions:{
-        setUser(token, name, image, email){
+        setUser(token, id, name, image, email){
             this.userToken = token;
+            this.userId = id;
             this.userName = name;
             this.userImage = image;
             this.userEmail = email;
