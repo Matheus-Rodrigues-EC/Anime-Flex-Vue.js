@@ -11,7 +11,10 @@ export default {
             listMembers: [],
             showConfirmAdmin: false,
             showConfirmBan: false,
-            AdminStore
+            AdminStore,
+
+            ShowNotification: false,
+            info: ''
         }
     },
     created() {
@@ -46,13 +49,15 @@ export default {
             })
                 .then((res) => {
                     // console.log(res.data);
-                    alert(res.data);
+                    this.info = res.data;
                     this.getAdminsList();
                     this.showConfirmAdmin = false;
+                    this.showNotification();
                 })
                 .catch((error) => {
-                    alert(error.response.data);
+                    this.info = error.response.data;
                     this.showConfirmAdmin = false;
+                    this.showNotification();
                 })
         },
         getMembersList(){
@@ -79,14 +84,22 @@ export default {
             })
                 .then((res) => {
                     // console.log(res.data);
-                    alert(res.data);
+                    this.info = res.data;
                     this.getMembersList();
                     this.showConfirmBan = false;
+                    this.showNotification();
                 })
                 .catch((error) => {
-                    alert(error.response.data);
+                    this.info = error.response.data;
                     this.showConfirmBan = false;
+                    this.showNotification();
                 })
+        },
+        showNotification(){
+            this.ShowNotification = true;
+            setTimeout(() => {
+                this.ShowNotification = false;
+            }, 4500);
         }
     }
 }
@@ -154,6 +167,10 @@ export default {
                     </ul>
                 </div>
             </div>
+        </div>
+
+        <div v-if="ShowNotification" class="Notification">
+            <h4>{{ info }}</h4>
         </div>
     </div>
 </template>

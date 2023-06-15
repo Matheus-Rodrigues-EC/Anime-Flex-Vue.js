@@ -52,6 +52,9 @@ export default {
 iframe{
     width: 750px;
     height: 500px;
+
+    max-width: 95%;
+    max-height: 50%;
     border-radius: 15px;
     box-shadow: 0 0 15px rgb(0, 0, 0, 1);
 }

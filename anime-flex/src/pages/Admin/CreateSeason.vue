@@ -14,7 +14,9 @@ export default {
             Season: '', 
             Cover: '', 
             Name: '',
-            AdminStore
+            AdminStore,
+            ShowNotification: false,
+            info: ''
         }
     },
     methods: {
@@ -34,25 +36,31 @@ export default {
                 }
             })
                 .then((res) => {
+                    this.info = "Season Cadastrada.";
+                    this.showNotification();
                     this.Anime = '';
                     this.Season = '';
                     this.Cover = '';
                     this.Name = '';
-                    // console.log("Season Cadastrada.");
-                    alert("Season Cadastrada.");
                     this.$router.push('/adminHome');
                 })
                 .catch((error) => {
-                    // console.log(error.response.data);
-                    alert(error.response.data);
+                    this.info = error.response.data;
+                    this.showNotification();
                 })
+        },
+        showNotification(){
+            this.ShowNotification = true;
+            setTimeout(() => {
+                this.ShowNotification = false;
+            }, 4500);
         }
     }
 }
 </script>
 
 <template>
-    <div class="cadastro" >
+    <div  >
         <form action="" @submit="createSeason" class="cadastro" >
             <img class="preview" :src="this.Cover" alt="Esperando Imagem..."/>
             <input type="text" required @change="e => this.Anime = e.target.value" placeholder="Nome do Anime" value="" />
@@ -61,6 +69,10 @@ export default {
             <input type="text" required @change="e => this.Name = e.target.value" placeholder="Nome da Temporada" value="" />
             <button type="submit">Adicionar Temporada</button>
         </form>
+
+        <div v-if="ShowNotification" class="Notification">
+            <h4>{{ info }}</h4>
+        </div>
     </div>
 </template>
 
@@ -69,7 +81,7 @@ export default {
 .cadastro{
     display: flex;
     flex-direction: column;
-    margin: 5rem auto;
+    margin: 75px auto;
     gap: 15px;
 }
 
@@ -78,7 +90,7 @@ export default {
     height: 200px;
     border: 1.5px solid #101010;
     border-radius: 15px;
-    margin: auto;
+    margin: 15px auto;
     box-sizing: border-box;
 }
 

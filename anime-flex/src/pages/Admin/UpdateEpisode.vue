@@ -22,7 +22,9 @@ export default {
             Number: '',
             Cover: '', 
             Url: '', 
-            AdminStore
+            AdminStore,
+            ShowNotification: false,
+            info: ''
         }
     },
     created(){
@@ -64,20 +66,26 @@ export default {
                 }
             })
                 .then((res) => {
+                    this.info = "Episode Atualizado.";
+                    this.showNotification();
                     this.Anime = '';
                     this.Season = '';
                     this.Name = '';
                     this.Number = '';
                     this.Cover = '';
                     this.Url = '';
-                    // console.log("Episode Cadastrado.");
-                    alert("Episode Atualizado.");
                     this.$router.push('/adminHome');
                 })
                 .catch((error) => {
-                    // console.log(error.response.data);
-                    alert(error.response.data);
+                    this.info = error.response.data;
+                    this.showNotification();
                 })
+        },
+        showNotification(){
+            this.ShowNotification = true;
+            setTimeout(() => {
+                this.ShowNotification = false;
+            }, 4500);
         }
     }
 }
@@ -95,6 +103,10 @@ export default {
             <input type="url" required @change="e => this.Url = e.target.value" placeholder="Url do Vídeo" :value="this.Url" />
             <button type="submit">Atualizar Episódio</button>
         </form>
+
+        <div v-if="ShowNotification" class="Notification">
+            <h4>{{ info }}</h4>
+        </div>
     </div>
 </template>
 

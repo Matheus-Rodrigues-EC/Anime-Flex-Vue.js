@@ -18,7 +18,9 @@ export default {
             Season: '', 
             Cover: '', 
             Name: '',
-            AdminStore
+            AdminStore,
+            ShowNotification: false,
+            info: ''
         }
     },
     created() {
@@ -56,18 +58,24 @@ export default {
                 }
             })
                 .then((res) => {
+                    this.info = "Season Atualizada.";
+                    this.showNotification();
                     this.Anime = '';
                     this.Season = '';
                     this.Cover = '';
                     this.Name = '';
-                    // console.log("Season Atualizada.");
-                    alert("Season Atualizada.");
                     this.$router.push('/');
                 })
                 .catch((error) => {
-                    // console.log(error.response.data);
-                    alert(error.response.data);
+                    this.info = error.response.data;
+                    this.showNotification();
                 })
+        },
+        showNotification(){
+            this.ShowNotification = true;
+            setTimeout(() => {
+                this.ShowNotification = false;
+            }, 4500);
         }
     }
 }
@@ -83,6 +91,10 @@ export default {
             <input type="text" required @change="(e) => this.Name = e.target.value" placeholder="Nome da Temporada" :value="this.Name" />
             <button type="submit">Atualizar Temporada</button>
         </form>
+
+        <div v-if="ShowNotification" class="Notification">
+            <h4>{{ info }}</h4>
+        </div>
     </div>
 </template>
 

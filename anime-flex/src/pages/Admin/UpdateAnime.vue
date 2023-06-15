@@ -16,7 +16,9 @@ export default {
             Id: '',
             Cover: '',
             Name: '',
-            AdminStore
+            AdminStore,
+            ShowNotification: false,
+            info: ''
         }
     },
     created() {
@@ -50,14 +52,20 @@ export default {
                 }
             })
                 .then((res) => {
-                    // console.log("Anime Atualizado.");
-                    alert("Anime Atualizado.");
+                    this.info = "Anime Atualizado.";
+                    this.showNotification();
                     this.$router.push('/');
                 })
                 .catch((error) => {
-                    // console.log(error);
-                    console.log(error.response.data);
+                    this.info = error.response.data;
+                    this.showNotification();
                 })
+        },
+        showNotification(){
+            this.ShowNotification = true;
+            setTimeout(() => {
+                this.ShowNotification = false;
+            }, 4500);
         }
     }
 }
@@ -71,6 +79,10 @@ export default {
             <input type="text" required @change="(e) => this.Name = e.target.value" placeholder="Nome do Anime" :value="this.Name" />
             <button type="submit">Atualizar Anime</button>
         </form>
+
+        <div v-if="ShowNotification" class="Notification">
+            <h4>{{ info }}</h4>
+        </div>
     </div>
 </template>
 

@@ -11,7 +11,9 @@ export default {
             AdminName: '',
             UserName: '',
             UserStore,
-            AdminStore
+            AdminStore,
+            ShowNotification: false,
+            info: ''
         }
     },
     created() {
@@ -46,13 +48,16 @@ export default {
                 }
             })
                 .then((res) => {
+                    this.info = "Sessão encerrada";
+                    this.showNotification();
                     this.UserName = '';
                     localStorage.removeItem('configuration');
                     this.UserStore.clearUser();
                     this.$router.push('/')
                 })
                 .catch((error) => {
-                    alert(error);
+                    this.info = error.response.data;
+                    this.showNotification();
                 })
         },
         logOutAdmin(){
@@ -63,14 +68,22 @@ export default {
                 }
             })
                 .then((res) => {
-                    alert(res.data);
+                    this.info = res.data;
+                    this.showNotification();
                     localStorage.removeItem('Master');
                     this.AdminStore.clearAdmin();
                     this.$router.push('/admin');
                 })
                 .catch((error) => {
-                    alert(error);
+                    this.info = error.response.data;
+                    this.showNotification();
                 })
+        },
+        showNotification(){
+            this.ShowNotification = true;
+            setTimeout(() => {
+                this.ShowNotification = false;
+            }, 4500);
         }
     }
 }
@@ -90,6 +103,10 @@ export default {
         <div v-else class="account">
             <router-link to="/signin">Entrar</router-link>
             <router-link to="/signup">Cadastrar-se</router-link>
+        </div>
+
+        <div v-if="ShowNotification" class="Notification">
+            <h4>{{ info }}</h4>
         </div>
     </div>
 </template>

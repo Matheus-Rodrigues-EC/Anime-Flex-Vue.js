@@ -11,7 +11,9 @@ export default {
             AnimesList: [],
             showConfirm: false,
             AdminStore,
-            UserStore
+            UserStore,
+            ShowNotification: false,
+            info: ''
         }
     },
     created() {
@@ -57,11 +59,19 @@ export default {
                 }
             })
             .then((res) => {
-                alert(res.data)
+                this.info = res.data;
+                this.showNotification();
             })
             .catch((error) =>{
-                alert(error.response.data);
+                this.info = error.response.data;
+                this.showNotification();
             })
+        },
+        showNotification(){
+            this.ShowNotification = true;
+            setTimeout(() => {
+                this.ShowNotification = false;
+            }, 4500);
         }
     }
 }
@@ -76,7 +86,7 @@ export default {
                     <img class="cover" :src="Anime.Cover" />
                     <p   class="anime_title">{{ Anime.Name }}  </p>
                 </router-link>
-                <button class="favoriteTrue" v-if="this.UserStore.isLogged" @click="() => addFavorite(Anime.Name)">S2</button>
+                <button class="favoriteTrue" v-if="this.UserStore.isLogged" @click="() => {addFavorite(Anime.Name)}">S2</button>
                 <div v-if="this.AdminStore.isLogged" class="Admin" >
                         <button class="warning" @click="() => this.$router.push(`/updateAnime/${Anime.Name}`)">Editar</button>
                         <button class="danger" @click="() => this.showConfirm = true /*deleteAnime(Anime._id)*/" >Deletar</button>
@@ -96,16 +106,20 @@ export default {
             </li>
         </ul>
 
+        <div v-if="ShowNotification" class="Notification">
+            <h4>{{ info }}</h4>
+        </div>
     </div>
 </template>
 
 <style scoped>
 
 .Anime_List{
-    width: 100%;
-    height: 75vh;
-    margin: 150px auto 0 auto;
     display: flex;
+    width: 100%;
+    height: 85vh;
+    margin: 75px auto 0 7.5%;
+    justify-content: center;
     flex-wrap: wrap;
     overflow-y: scroll;
 }
@@ -120,6 +134,8 @@ ul{
     flex-wrap: wrap;
     gap: 25px;    
     animation: esmaecer 1s;
+    padding: 0;
+    margin: auto;
 }
 
 li {
@@ -227,5 +243,7 @@ button {
     border-color: #00AA00;
     color: #00AA00;
 }
+
+
 
 </style>

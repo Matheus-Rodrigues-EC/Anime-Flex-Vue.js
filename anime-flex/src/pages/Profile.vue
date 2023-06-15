@@ -14,7 +14,10 @@ export default {
             name: '',
             image: '',
 
-            favorites: []
+            favorites: [],
+
+            ShowNotification: false,
+            info: ''
         }
     },
     created(){
@@ -90,12 +93,20 @@ export default {
                 }
             })
             .then((res) => {
-                alert(res.data);
+                this.info = res.data;
                 this.getFavorites();
+                this.showNotification();
             })
             .catch((error) =>{
-                alert(error.response.data);
+                this.info = error.response.data;
+                this.showNotification();
             })
+        },
+        showNotification(){
+            this.ShowNotification = true;
+            setTimeout(() => {
+                this.ShowNotification = false;
+            }, 4500);
         }
     }
 
@@ -144,6 +155,10 @@ export default {
                     <button class="danger" @click="() => deleteAccount()" >Confirmar</button>
                 </div>
             </div>
+        </div>
+
+        <div v-if="ShowNotification" class="Notification">
+            <h4>{{ info }}</h4>
         </div>
     </div>
 </template>

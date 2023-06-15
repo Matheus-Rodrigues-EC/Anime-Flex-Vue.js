@@ -11,7 +11,10 @@ export default {
             name: '',
             image: '',
             email: '',
-            password: ''
+            password: '',
+
+            ShowNotification: false,
+            info: ''
         }
     },
     methods: {
@@ -26,18 +29,24 @@ export default {
 
             axios.post(`${import.meta.env.VITE_BASE_URL}/signup`, body)
                 .then((res) => {
-                    // console.log("Membro cadastrado.");
-                    alert("Cadastro realizado com sucesso.");
+                    this.info = res.data;
                     this.name = '';
                     this.image = '';
                     this.email = '';
                     this.password = '';
+                    this.showNotification();
                     this.$router.push("/signin");
                 })
                 .catch((error) => {
-                    // console.log(error.response.data);
-                    alert(error.response.data);
+                    this.info = error.response.data;
+                    this.showNotification();
                 })
+        },
+        showNotification(){
+            this.ShowNotification = true;
+            setTimeout(() => {
+                this.ShowNotification = false;
+            }, 4500);
         }
     }
 }
@@ -54,6 +63,10 @@ export default {
             <input type="password" required @change="e => this.password = e.target.value" placeholder="Password" value="" />
             <button type="submit">Cadastrar</button>
         </form>
+
+        <div v-if="ShowNotification" class="Notification">
+            <h4>{{ info }}</h4>
+        </div>
     </div>
 </template>
 

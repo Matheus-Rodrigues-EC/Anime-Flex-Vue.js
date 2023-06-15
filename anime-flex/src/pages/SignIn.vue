@@ -12,7 +12,10 @@ export default {
         return {
             email: '',
             password: '',
-            useStore
+            useStore,
+
+            ShowNotification: false,
+            info: ''
         }
     },
     methods:{
@@ -31,9 +34,15 @@ export default {
                     this.$router.push('/');
                 })
                 .catch((error) => {
-                    // console.log(error)
-                    alert(error.response.data);
+                    this.info = error.response.data;
+                    this.showNotification();
                 })
+        },
+        showNotification(){
+            this.ShowNotification = true;
+            setTimeout(() => {
+                this.ShowNotification = false;
+            }, 4500);
         }
     }
 }
@@ -47,6 +56,10 @@ export default {
             <input type="password" required @change="e => this.password = e.target.value" placeholder="Password" value="" />
             <button type="submit">Entrar</button>
         </form>
+
+        <div v-if="ShowNotification" class="Notification">
+            <h4>{{ info }}</h4>
+        </div>
     </div>
 </template>
 

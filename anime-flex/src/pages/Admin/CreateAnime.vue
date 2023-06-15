@@ -12,7 +12,9 @@ export default {
         return {
             cover: '',
             name: '',
-            AdminStore
+            AdminStore,
+            ShowNotification: false,
+            info: ''
         }
     },
     methods: {
@@ -30,16 +32,24 @@ export default {
                 }
             })
                 .then((res) => {
+                    this.info = "Anime Cadastrado.";
+                    this.showNotification();
                     this.cover = '';
                     this.name = '';
-                    // console.log("Anime Cadastrado.");
-                    alert("Anime Cadastrado.");
+                    
                     this.$router.push('/adminHome');
                 })
                 .catch((error) => {
                     // console.log(error.response.data);
-                    alert(error.response.data);
+                    this.info = error.response.data;
+                    this.showNotification();
                 })
+        },
+        showNotification(){
+            this.ShowNotification = true;
+            setTimeout(() => {
+                this.ShowNotification = false;
+            }, 3000);
         }
     }
 }
@@ -53,6 +63,10 @@ export default {
             <input type="text" required @change="e => this.name = e.target.value" placeholder="Nome do Anime" value="" />
             <button type="submit">Adicionar Anime</button>
         </form>
+
+        <div v-if="ShowNotification" class="Notification">
+            <h4>{{ info }}</h4>
+        </div>
     </div>
 </template>
 

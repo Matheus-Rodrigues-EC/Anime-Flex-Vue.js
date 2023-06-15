@@ -16,7 +16,9 @@ export default {
             Number: '',
             Cover: '', 
             Url: '',
-            AdminStore
+            AdminStore,
+            ShowNotification: false,
+            info: ''
         }
     },
     methods: {
@@ -38,27 +40,33 @@ export default {
                 }
             })
                 .then((res) => {
+                    this.info = "Episode Cadastrado.";
+                    this.showNotification();
                     this.Anime = '';
                     this.Season = '';
                     this.Name = '';
                     this.Number = '';
                     this.Cover = '';
                     this.Url = '';
-                    // console.log("Episode Cadastrado.");
-                    alert("Episode Cadastrado.");
                     this.$router.push('/adminHome');
                 })
                 .catch((error) => {
-                    // console.log(error.response.data);
-                    alert(error.response.data);
+                    this.info = error.response.data;
+                    this.showNotification();
                 })
+        },
+        showNotification(){
+            this.ShowNotification = true;
+            setTimeout(() => {
+                this.ShowNotification = false;
+            }, 4500);
         }
     }
 }
 </script>
 
 <template>
-    <div class="cadastro" >
+    <div >
         <form action="" @submit="createEpisode" class="cadastro" >
             <img class="preview" :src="this.Cover" alt="Esperando Imagem..."/>
             <input type="text" required @change="e => this.Anime = e.target.value" placeholder="Nome do Anime" value="" />
@@ -69,6 +77,10 @@ export default {
             <input type="url" required @change="e => this.Url = e.target.value" placeholder="Url do Vídeo" value="" />
             <button type="submit">Adicionar Episódio</button>
         </form>
+
+        <div v-if="ShowNotification" class="Notification">
+            <h4>{{ info }}</h4>
+        </div>
     </div>
 </template>
 
@@ -77,8 +89,9 @@ export default {
 .cadastro{
     display: flex;
     flex-direction: column;
-    margin: 5rem auto;
+    margin: 75px auto;
     gap: 15px;
+    padding-bottom: 25px;
 }
 
 .preview {
@@ -86,7 +99,7 @@ export default {
     height: 200px;
     border: 1.5px solid #101010;
     border-radius: 15px;
-    margin: auto;
+    margin: 15px auto;
     box-sizing: border-box;
 }
 

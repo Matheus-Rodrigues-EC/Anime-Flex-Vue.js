@@ -12,7 +12,9 @@ export default {
         return {
             name: '',
             password: '',
-            AdminStore
+            AdminStore,
+            ShowNotification: false,
+            info: ''
         }
     },
     methods: {
@@ -33,13 +35,20 @@ export default {
                     this.name = '';
                     this.password = '';
                     // console.log("Administrador Cadastrado.");
-                    alert("Administrador Cadastrado.");
+                    this.info = "Administrador Cadastrado.";
+                    this.showNotification();
                     this.$router.push('/adminHome');
                 })
                 .catch((error) => {
-                    // console.log(error.response.data);
-                    alert(error.response.data)
+                    this.info = error.response.data;
+                    this.showNotification();
                 })
+        },
+        showNotification(){
+            this.ShowNotification = true;
+            setTimeout(() => {
+                this.ShowNotification = false;
+            }, 4500);
         }
     }
 }
@@ -53,6 +62,10 @@ export default {
             <input type="password" required @change="e => this.password = e.target.value" placeholder="Password" value="" />
             <button type="submit">Enviar</button>
         </form>
+
+        <div v-if="ShowNotification" class="Notification">
+            <h4>{{ info }}</h4>
+        </div>
     </div>
 </template>
 
