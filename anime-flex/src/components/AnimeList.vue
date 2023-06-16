@@ -9,11 +9,17 @@ export default {
         const UserStore = useUserStore();
         return {
             AnimesList: [],
+            BacupAnimesList: [],
             showConfirm: false,
             AdminStore,
             UserStore,
             ShowNotification: false,
-            info: ''
+            info: '',
+            Busca: '',
+            
+            Cover: '',
+            Name: '',
+            _id: ''
         }
     },
     created() {
@@ -24,6 +30,7 @@ export default {
             axios.get(`${import.meta.env.VITE_BASE_URL}/animes`)
                 .then((res) => {
                     this.AnimesList = res.data;
+                    this.BacupAnimesList = res.data;
                 })
                 .catch((error) => {
                     alert(error);
@@ -72,6 +79,22 @@ export default {
             setTimeout(() => {
                 this.ShowNotification = false;
             }, 4500);
+        },
+        filtrar(value){
+            // this.BacupAnimesList = this.AnimesList;
+            this.BacupAnimesList.filter((anime) => {
+                this.Busca = value;
+                if(anime.Name === this.Busca){
+                    this._id = anime._id;
+                    this.Name = anime.Name;
+                    this.Cover = anime.Cover;
+                    const Anime = [{_id: this._id, Name: this.Name, Cover: this.Cover}];
+                    console.log(this.Busca);    
+                    this.AnimesList = Anime;
+                }
+                return 0
+            })
+
         }
     }
 }
@@ -80,6 +103,11 @@ export default {
 
 <template>
     <div class="Anime_List">
+        <div class="filtro">
+            <button @click="() => {this.getAnimes(), this.Busca = ''}">↺</button>
+            <input  placeholder="Buscar..." @change="(e) => {filtrar(e.target.value), e.target.value = ''}" value="" />
+        </div>
+        
         <ul id="List">
             <li @click="() => AnimeName(Anime.Name)" class="Anime_Item" v-for="(Anime) in this.AnimesList" :key="Anime._id" >
                 <router-link :to="'/anime/'+Anime.Name">
@@ -118,13 +146,17 @@ export default {
     display: flex;
     width: 100%;
     height: 85vh;
-    margin: 75px auto 0 7.5%;
+    margin: 75px auto;
     justify-content: center;
     flex-wrap: wrap;
     overflow-y: scroll;
 }
 .Anime_List::-webkit-scrollbar{
     display: none;
+}
+
+.filtro{
+    margin: 15px auto;
 }
 
 ul{
@@ -135,12 +167,13 @@ ul{
     gap: 25px;    
     animation: esmaecer 1s;
     padding: 0;
-    margin: auto;
+    margin: 0 auto;
 }
 
 li {
     display: flex;
     flex-direction: column;
+    margin: auto;
     transition: background-color 0.5s;
     background-color: #181818;
     width: 15rem;
@@ -197,11 +230,9 @@ li .favoriteTrue{
 
 
 button {
-    margin: 0 5px;
-    width: 75px;
-    font-size: 10px;
-    background-color: #101010;
-    transition: border-color, color .5s;
+    margin: 5% 15px 5% ;
+    width: auto;
+    justify-content: center;
 }
 
 .ContainerBox{
