@@ -81,19 +81,18 @@ export default {
             }, 4500);
         },
         filtrar(value){
-            // this.BacupAnimesList = this.AnimesList;
-            this.BacupAnimesList.filter((anime) => {
+            const newArr = this.BacupAnimesList.filter((anime) => {
                 this.Busca = value;
-                if(anime.Name === this.Busca){
+                if(anime.Name.toLowerCase().includes(this.Busca.toLowerCase())){
                     this._id = anime._id;
                     this.Name = anime.Name;
                     this.Cover = anime.Cover;
-                    const Anime = [{_id: this._id, Name: this.Name, Cover: this.Cover}];
-                    console.log(this.Busca);    
-                    this.AnimesList = Anime;
+                    const Anime = [... [{_id: this._id, Name: this.Name, Cover: this.Cover}]];
+                    return Anime;
                 }
-                return 0
             })
+            this.AnimesList = newArr;
+            console.log(newArr);
 
         }
     }
@@ -104,7 +103,7 @@ export default {
 <template>
     <div class="Anime_List">
         <div class="filtro">
-            <button @click="() => {this.getAnimes(), this.Busca = ''}">↺</button>
+            <button @click="() => {this.AnimesList = this.BacupAnimesList, this.Busca = ''}">↺</button>
             <input  placeholder="Buscar..." @change="(e) => {filtrar(e.target.value), e.target.value = ''}" value="" />
         </div>
         
@@ -164,7 +163,7 @@ ul{
     list-style: none;
     display: flex;
     flex-wrap: wrap;
-    gap: 25px;    
+    gap: 15px;    
     animation: esmaecer 1s;
     padding: 0;
     margin: 0 auto;
@@ -206,7 +205,7 @@ li .anime_title{
     font-size: 20px;
     align-items: center;
     justify-content: center;
-    margin: 30px auto;
+    margin: 30px auto 0 auto;
 }
 
 li .favoriteTrue{
@@ -223,6 +222,7 @@ li .favoriteTrue{
     display: flex;
     flex-direction: row;
     width: 100%;
+    height: auto;
     justify-content: space-around;
     margin: auto auto 10px auto;
 }
@@ -230,7 +230,7 @@ li .favoriteTrue{
 
 
 button {
-    margin: 5% 15px 5% ;
+    margin: 2.5% 15px;
     width: auto;
     justify-content: center;
 }
