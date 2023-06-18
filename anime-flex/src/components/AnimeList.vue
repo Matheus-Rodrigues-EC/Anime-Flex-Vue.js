@@ -166,7 +166,7 @@ ul{
     gap: 15px;    
     animation: esmaecer 1s;
     padding: 0;
-    margin: 0 auto;
+    margin: 0 2rem;
 }
 
 li {
