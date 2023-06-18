@@ -129,13 +129,13 @@ export default {
             <h2>Olá, {{ this.UserStore.userName }}.</h2>
             <label>Email: {{ this.UserStore.userEmail }}</label>
             <div class="buttons">
-                <button @click="() => this.getFavorites()" >Favoritos</button>
                 <button class="warning" @click="() => {this.editing = true, this.getInfoProfile()}">Editar Perfil</button>
                 <button class="danger" @click="() => this.showConfirm = true">Excluir Conta</button>
             </div>
             <div class="list" >
                 <p v-if="this.favorites.length === 0">Você não possui nenhum anime favoritado</p>
                 <ul v-else>
+                    <h3>Favoritos</h3>
                     <li v-for="(favorito) in favorites" :key="favorito._id" @click="() => null" >
                         <p>{{ favorito.Anime }}</p>
                         <button class="desfavoritar" @click="() => this.deleteFavorite(favorito.Anime)" alt="Remover dos Favoritos">S/2</button>
@@ -207,6 +207,10 @@ li{
     justify-content: space-between;
     align-items: center;
     padding: 0 30px;
+}
+
+p {
+    padding: 0 15px;
 }
 
 .desfavoritar{

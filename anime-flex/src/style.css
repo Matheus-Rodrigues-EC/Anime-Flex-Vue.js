@@ -129,8 +129,9 @@ button:hover {
   height: 75px;
   background-color: #252525;
   position: absolute;
-  top: 90px;
-  left: 40%;
+  top: 100px;
+  /* left: 50; */
+  margin: auto;
   border: 5px double #FFF;
   border-radius: 15px;
   align-items: center;
