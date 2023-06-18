@@ -229,11 +229,11 @@ li .favoriteTrue{
 
 
 
-button {
+/* button {
     margin: 2.5% 15px;
     width: auto;
     justify-content: center;
-}
+} */
 
 .ContainerBox{
     height: 120%;
@@ -267,7 +267,7 @@ button {
 .buttons{
     display: flex;
     justify-content: space-evenly;
-    height: 35px;
+    height: auto;
 }
 
 :hover.Cancel{

@@ -100,8 +100,8 @@ button {
   cursor: pointer;
   transition: color, border-color .5s;
   animation: surgir 1s;
-
 }
+
 button:hover {
   border-color: #646cff;
 }
