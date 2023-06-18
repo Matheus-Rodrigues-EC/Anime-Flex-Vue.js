@@ -76,6 +76,8 @@ export default {
                 })
                 .catch((error) => {
                     this.info = error.response.data;
+                    localStorage.removeItem('Master');
+                    this.AdminStore.clearAdmin();
                     this.showNotification();
                 })
         },
