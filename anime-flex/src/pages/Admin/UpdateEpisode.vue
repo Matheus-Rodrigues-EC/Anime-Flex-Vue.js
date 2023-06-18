@@ -20,7 +20,6 @@ export default {
             Season: '', 
             Name: '',
             Number: '',
-            Cover: '', 
             Url: '', 
             AdminStore,
             ShowNotification: false,
@@ -39,24 +38,22 @@ export default {
                     this.Season = res.data.Season;
                     this.Name = res.data.Name;
                     this.Number = res.data.Number;
-                    this.Cover = res.data.Cover;
                     this.Url = res.data.URL;
                 })
                 .catch((error) => {
                     console.log(error.response.data);
                 })
         },
-        updateEpisode(e, id, anime, season_name, episode_name, episode_number, episode_cover, url) {
+        updateEpisode(e, id, anime, season_name, episode_name, episode_number, url) {
             e.preventDefault();
             id = this.Id;
             anime = this.Anime;
             season_name = this.Season;
             episode_name = this.Name;
             episode_number = this.Number;
-            episode_cover = this.Cover;
             url = this.Url
 
-            const body = {anime, season_name, episode_name, episode_number, episode_cover, url};
+            const body = {anime, season_name, episode_name, episode_number, url};
             const token = this.AdminStore.adminToken;
 
             axios.put(`${import.meta.env.VITE_BASE_URL}/updateEpisode`, body, {
@@ -72,7 +69,6 @@ export default {
                     this.Season = '';
                     this.Name = '';
                     this.Number = '';
-                    this.Cover = '';
                     this.Url = '';
                     this.$router.push('/adminHome');
                 })
@@ -99,7 +95,6 @@ export default {
             <input type="text" required @change="e => this.Season = e.target.value" placeholder="Nome da Temporada" :value="this.Season" />
             <input type="text" required @change="e => this.Name = e.target.value" placeholder="Nome do Episódio" :value="this.Name" />
             <input type="number" required @change="e => this.Number = e.target.value" placeholder="Número do Episódio" :value="this.Number" />
-            <input type="url" required @change="e => this.Cover = e.target.value" placeholder="Url da imagem" :value="this.Cover" />
             <input type="url" required @change="e => this.Url = e.target.value" placeholder="Url do Vídeo" :value="this.Url" />
             <button type="submit">Atualizar Episódio</button>
         </form>

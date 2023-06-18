@@ -36,9 +36,9 @@ export default {
                     alert(error);
                 })
         }, 
-        AnimeName(name){
-            this.$emit("NameAnime", name);
-        },
+        // AnimeName(name){
+        //     this.$emit("NameAnime", name);
+        // },
         deleteAnime(id){
             const token = this.AdminStore.adminToken;
             axios.delete(`${import.meta.env.VITE_BASE_URL}/deleteAnime`, {
@@ -92,7 +92,6 @@ export default {
                 }
             })
             this.AnimesList = newArr;
-            console.log(newArr);
 
         }
     }
