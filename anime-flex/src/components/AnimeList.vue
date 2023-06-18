@@ -101,7 +101,7 @@ export default {
 
 <template>
     <div class="Anime_List">
-        <div class="filtro" v-if="this.UserStore.isLogged">
+        <div class="filtro" v-if="this.UserStore.isLogged || this.AdminStore.isLogged">
             <button @click="() => {this.AnimesList = this.BacupAnimesList, this.Busca = ''}">↺</button>
             <input  placeholder="Buscar..." @change="(e) => {filtrar(e.target.value), e.target.value = ''}" value="" />
         </div>
