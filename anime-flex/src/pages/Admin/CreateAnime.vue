@@ -58,6 +58,7 @@ export default {
 <template>
     <div class="cadastro" >
         <form action="" @submit="createAnime" class="cadastro" >
+            <h2>Adicionar Anime</h2>
             <img class="preview" :src="this.cover" alt="Esperando Imagem..."/>
             <input type="url" required @change="e => this.cover = e.target.value" placeholder="Url da imagem" value="" />
             <input type="text" required @change="e => this.name = e.target.value" placeholder="Nome do Anime" value="" />
@@ -70,12 +71,16 @@ export default {
     </div>
 </template>
 
-<style>
+<style scoped>
+
+h2{
+    margin: 0;
+}
 
 .cadastro{
     display: flex;
     flex-direction: column;
-    margin: 5rem auto;
+    margin: 75px auto;
     gap: 15px;
 }
 

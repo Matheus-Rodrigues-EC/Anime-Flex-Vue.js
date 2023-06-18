@@ -10,7 +10,9 @@ export default {
             anime: {},
             seasons: [],
             showConfirm: false,
-            AdminStore
+            AdminStore,
+            ShowNotification: false,
+            info: ''
         }
     },
     props: {
@@ -43,14 +45,22 @@ export default {
                 }
             })
             .then((res) => {
-                console.log(res.data);
+                this.info = "Temporada Deletada.";
+                this.showNotification();
                 this.getAnimeInfo();
                 this.showConfirm = false;
             })
             .catch((error) =>{
-                console.log(error);
+                this.info = error.response.data;
+                this.showNotification();
                 this.showConfirm = false;
             })
+        },
+        showNotification(){
+            this.ShowNotification = true;
+            setTimeout(() => {
+                this.ShowNotification = false;
+            }, 4500);
         }
     }
 }
@@ -86,6 +96,10 @@ export default {
                     </div>
                 </li>
             </ul>
+        </div>
+
+        <div v-if="ShowNotification" class="Notification">
+            <h4>{{ info }}</h4>
         </div>
     </div>
 </template>

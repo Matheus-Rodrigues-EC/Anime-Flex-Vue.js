@@ -20,7 +20,6 @@ export default {
         getEpisode() {
             axios.get(`${import.meta.env.VITE_BASE_URL}/${this.name}/${this.season}/${this.episode}`)
                 .then((res) => {
-                    console.log(res.data);
                     this.episodeInfo = res.data;
                 })
                 .catch((error) => {

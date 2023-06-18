@@ -10,7 +10,9 @@ export default {
             SeasonInfo: {},
             EpisodesList: [],
             showConfirm: false,
-            AdminStore
+            AdminStore,
+            ShowNotification: false,
+            info: ''
         }
     },
     props:{
@@ -24,11 +26,14 @@ export default {
         getSeason() {
             axios.get(`${import.meta.env.VITE_BASE_URL}/${this.name}/${this.season}`)
                 .then((res) => {
+                    console.log(this.name);
+                    console.log(this.season);
                     this.SeasonInfo = res.data.Season;
                     this.EpisodesList = res.data.Episodes
                 })
                 .catch((error) => {
-                    console.log(error.response.data);
+                    this.info = error.response.data;
+                    this.showNotification();
                 })
         },
         deleteEpisode(id){
@@ -40,15 +45,22 @@ export default {
                 }
             })
             .then((res) => {
-                // console.log(res.data);
-                alert(res.data);
+                this.info = "Episódio Deletado.";
+                this.showNotification();
                 this.getSeason();
                 this.showConfirm = false;
             })
             .catch((error) =>{
-                console.log(error);
+                this.info = error.response.data;
+                this.showNotification();
                 this.showConfirm = false;
             })
+        },
+        showNotification(){
+            this.ShowNotification = true;
+            setTimeout(() => {
+                this.ShowNotification = false;
+            }, 4500);
         }
     }
 }
@@ -84,6 +96,10 @@ export default {
                     </div>
                 </li>
             </ul>
+        </div>
+
+        <div v-if="ShowNotification" class="Notification">
+            <h4>{{ info }}</h4>
         </div>
     </div>
 </template>

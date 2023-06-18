@@ -66,7 +66,7 @@ export default {
                 }
             })
                 .then((res) => {
-                    this.info = "Episode Atualizado.";
+                    this.info = "Episódio Atualizado.";
                     this.showNotification();
                     this.Anime = '';
                     this.Season = '';

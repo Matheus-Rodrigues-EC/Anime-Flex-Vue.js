@@ -14,7 +14,6 @@ export default {
             Season: '', 
             Name: '',
             Number: '',
-            Cover: '', 
             Url: '',
             AdminStore,
             ShowNotification: false,
@@ -22,16 +21,15 @@ export default {
         }
     },
     methods: {
-        createEpisode(e, anime, season_name, episode_name, episode_number, episode_cover, url) {
+        createEpisode(e, anime, season_name, episode_name, episode_number, url) {
             e.preventDefault();
             anime = this.Anime, 
             season_name = this.Season, 
             episode_name = this.Name, 
             episode_number = this.Number, 
-            episode_cover = this.Cover, 
             url = this.Url
 
-            const body = {anime, season_name, episode_name, episode_number, episode_cover, url};
+            const body = {anime, season_name, episode_name, episode_number, url};
             const token = this.AdminStore.adminToken;
 
             axios.post(`${import.meta.env.VITE_BASE_URL}/createEpisode`, body, {
@@ -40,13 +38,12 @@ export default {
                 }
             })
                 .then((res) => {
-                    this.info = "Episode Cadastrado.";
+                    this.info = "Episódio Cadastrado.";
                     this.showNotification();
                     this.Anime = '';
                     this.Season = '';
                     this.Name = '';
                     this.Number = '';
-                    this.Cover = '';
                     this.Url = '';
                     this.$router.push('/adminHome');
                 })
@@ -68,12 +65,12 @@ export default {
 <template>
     <div >
         <form action="" @submit="createEpisode" class="cadastro" >
+            <h2>Adicionar Episódio</h2>
             <img class="preview" :src="this.Cover" alt="Esperando Imagem..."/>
             <input type="text" required @change="e => this.Anime = e.target.value" placeholder="Nome do Anime" value="" />
             <input type="text" required @change="e => this.Season = e.target.value" placeholder="Nome da Temporada" value="" />
             <input type="text" required @change="e => this.Name = e.target.value" placeholder="Nome do Episódio" value="" />
             <input type="number" required @change="e => this.Number = e.target.value" placeholder="Número do Episódio" value="" />
-            <input type="url" required @change="e => this.Cover = e.target.value" placeholder="Url da imagem" value="" />
             <input type="url" required @change="e => this.Url = e.target.value" placeholder="Url do Vídeo" value="" />
             <button type="submit">Adicionar Episódio</button>
         </form>
@@ -85,6 +82,10 @@ export default {
 </template>
 
 <style>
+
+h2 {
+    margin: 0;
+}
 
 .cadastro{
     display: flex;

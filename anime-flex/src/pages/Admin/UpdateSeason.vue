@@ -58,7 +58,7 @@ export default {
                 }
             })
                 .then((res) => {
-                    this.info = "Season Atualizada.";
+                    this.info = "Temporada Atualizada.";
                     this.showNotification();
                     this.Anime = '';
                     this.Season = '';
@@ -82,7 +82,7 @@ export default {
 </script>
 
 <template>
-    <div class="cadastro" >
+    <div >
         <form action="" @submit="updateSeason" class="cadastro" >
             <img class="preview" :src="this.Cover" alt="Esperando Imagem..."/>
             <input type="text" required @change="(e) => this.Anime = e.target.value" placeholder="Nome do Anime" :value="this.Anime" />

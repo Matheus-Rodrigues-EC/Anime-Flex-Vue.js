@@ -139,6 +139,7 @@ button:hover {
   animation: notificar 0.5s linear;
   box-sizing: border-box;
   box-shadow: 0 0 25px #000;
+  z-index: 999;
 }
 
 h4{

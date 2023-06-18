@@ -24,7 +24,7 @@ export default {
             e.preventDefault();
             anime = this.Anime;
             n_Season = this.Season;
-            season_cover = this.Cover;
+            season_cover = (this.Cover) ? this.Cover : "Inherit" ;
             season_name = this.Name;
 
             const body = {anime, n_Season, season_cover, season_name};
@@ -36,7 +36,7 @@ export default {
                 }
             })
                 .then((res) => {
-                    this.info = "Season Cadastrada.";
+                    this.info = "Temporada Cadastrada.";
                     this.showNotification();
                     this.Anime = '';
                     this.Season = '';
@@ -62,10 +62,11 @@ export default {
 <template>
     <div  >
         <form action="" @submit="createSeason" class="cadastro" >
+            <h2>Adicionar Temporada</h2>
             <img class="preview" :src="this.Cover" alt="Esperando Imagem..."/>
             <input type="text" required @change="e => this.Anime = e.target.value" placeholder="Nome do Anime" value="" />
             <input type="number" required @change="e => this.Season = e.target.value" placeholder="Número da Temporada" value="" />
-            <input type="url" required @change="e => this.Cover = e.target.value" placeholder="Url da imagem" value="" />
+            <input type="url" @change="e => this.Cover = e.target.value" placeholder="Url da imagem" value="" />
             <input type="text" required @change="e => this.Name = e.target.value" placeholder="Nome da Temporada" value="" />
             <button type="submit">Adicionar Temporada</button>
         </form>
@@ -78,6 +79,9 @@ export default {
 
 <style>
 
+h2 {
+    margin: 0;
+}
 .cadastro{
     display: flex;
     flex-direction: column;

@@ -48,7 +48,6 @@ export default {
                 }
             })
                 .then((res) => {
-                    // console.log(res.data);
                     this.info = res.data;
                     this.getAdminsList();
                     this.showConfirmAdmin = false;
@@ -83,7 +82,6 @@ export default {
                 }
             })
                 .then((res) => {
-                    // console.log(res.data);
                     this.info = res.data;
                     this.getMembersList();
                     this.showConfirmBan = false;
