@@ -229,11 +229,11 @@ li .favoriteTrue{
 
 
 
-/* button {
+button {
     margin: 2.5% 15px;
     width: auto;
     justify-content: center;
-} */
+}
 
 .ContainerBox{
     height: 120%;
