@@ -64,10 +64,10 @@ export default {
         <form action="" @submit="createSeason" class="cadastro" >
             <h2>Adicionar Temporada</h2>
             <img class="preview" :src="this.Cover" alt="Esperando Imagem..."/>
-            <input type="text" required @change="e => this.Anime = e.target.value" placeholder="Nome do Anime" value="" />
-            <input type="number" required @change="e => this.Season = e.target.value" placeholder="Número da Temporada" value="" />
-            <input type="url" @change="e => this.Cover = e.target.value" placeholder="Url da imagem" value="" />
-            <input type="text" required @change="e => this.Name = e.target.value" placeholder="Nome da Temporada" value="" />
+            <input type="text" v-model="this.Anime" placeholder="Nome do Anime"/>
+            <input type="number" v-model="this.Season" placeholder="Número da Temporada"/>
+            <input type="url" v-model="this.Cover" placeholder="Url da imagem"/>
+            <input type="text" v-model="this.Name" placeholder="Nome da Temporada"/>
             <button type="submit">Adicionar Temporada</button>
         </form>
 

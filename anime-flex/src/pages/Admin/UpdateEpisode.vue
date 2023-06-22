@@ -91,11 +91,11 @@ export default {
     <div class="cadastro" >
         <form action="" @submit="updateEpisode" class="cadastro" >
             <img class="preview" :src="this.Cover" alt="Esperando Imagem..."/>
-            <input type="text" required @change="e => this.Anime = e.target.value" placeholder="Nome do Anime" :value="this.Anime" />
-            <input type="text" required @change="e => this.Season = e.target.value" placeholder="Nome da Temporada" :value="this.Season" />
-            <input type="text" required @change="e => this.Name = e.target.value" placeholder="Nome do Episódio" :value="this.Name" />
-            <input type="number" required @change="e => this.Number = e.target.value" placeholder="Número do Episódio" :value="this.Number" />
-            <input type="url" required @change="e => this.Url = e.target.value" placeholder="Url do Vídeo" :value="this.Url" />
+            <input type="text" v-model="this.Anime" placeholder="this.Anime"/>
+            <input type="text" v-model="this.Season" placeholder="this.Season"/>
+            <input type="text" v-model="this.Name" placeholder="Nome do Episódio"/>
+            <input type="number" v-model="this.Number" placeholder="this.Number"/>
+            <input type="url" v-model="this.Url" placeholder="this.Url"/>
             <button type="submit">Atualizar Episódio</button>
         </form>
 

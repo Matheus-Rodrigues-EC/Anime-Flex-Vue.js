@@ -75,8 +75,8 @@ export default {
     <div class="cadastro" >
         <form action="" @submit="updateAnime" class="cadastro" >
             <img class="preview" :src="this.Cover" alt="Esperando Imagem..."/>
-            <input type="url" required @change="(e) => this.Cover = e.target.value" placeholder="Url da imagem" :value="this.Cover" />
-            <input type="text" required @change="(e) => this.Name = e.target.value" placeholder="Nome do Anime" :value="this.Name" />
+            <input type="url" v-model="this.Cover" placeholder="this.cover" />
+            <input type="text" v-model="this.Name" placeholder="this.Name"/>
             <button type="submit">Atualizar Anime</button>
         </form>
 

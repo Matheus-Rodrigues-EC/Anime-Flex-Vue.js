@@ -60,8 +60,8 @@ export default {
         <form action="" @submit="createAnime" class="cadastro" >
             <h2>Adicionar Anime</h2>
             <img class="preview" :src="this.cover" alt="Esperando Imagem..."/>
-            <input type="url" required @change="e => this.cover = e.target.value" placeholder="Url da imagem" value="" />
-            <input type="text" required @change="e => this.name = e.target.value" placeholder="Nome do Anime" value="" />
+            <input type="url" v-model="cover" placeholder="Url da imagem"/>
+            <input type="text" v-model="name" placeholder="Nome do Anime"/>
             <button type="submit">Adicionar Anime</button>
         </form>
 
