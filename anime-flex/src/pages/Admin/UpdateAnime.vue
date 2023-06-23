@@ -8,7 +8,7 @@ export default {
 
     },
     props:{
-        name: ''
+        anime: ''
     },
     data() {
         const AdminStore = useAdminStore();
@@ -26,7 +26,7 @@ export default {
     },
     methods: {
         getAnimeInfos(){
-            axios.get(`${import.meta.env.VITE_BASE_URL}/anime/${this.name}`)
+            axios.get(`${import.meta.env.VITE_BASE_URL}/anime/${this.anime}`)
                 .then((res) => {
                     this.Id = res.data.Anime._id
                     this.Cover = res.data.Anime.Cover
@@ -75,8 +75,8 @@ export default {
     <div class="cadastro" >
         <form action="" @submit="updateAnime" class="cadastro" >
             <img class="preview" :src="this.Cover" alt="Esperando Imagem..."/>
-            <input type="url" required @change="(e) => this.Cover = e.target.value" placeholder="Url da imagem" :value="this.Cover" />
-            <input type="text" required @change="(e) => this.Name = e.target.value" placeholder="Nome do Anime" :value="this.Name" />
+            <input  type="url"  required v-model="Cover"    placeholder="Url da imagem"  />
+            <input  type="text" required v-model="Name"     placeholder="Nome do Anime"  />
             <button type="submit">Atualizar Anime</button>
         </form>
 

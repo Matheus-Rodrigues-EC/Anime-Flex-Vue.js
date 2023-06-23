@@ -36,9 +36,9 @@ export default {
                     alert(error);
                 })
         }, 
-        // AnimeName(name){
-        //     this.$emit("NameAnime", name);
-        // },
+        AnimeName(name){
+            this.$emit("NameAnime", name);
+        },
         deleteAnime(id){
             const token = this.AdminStore.adminToken;
             axios.delete(`${import.meta.env.VITE_BASE_URL}/deleteAnime`, {
@@ -103,7 +103,7 @@ export default {
     <div class="Anime_List">
         <div class="filtro" v-if="this.UserStore.isLogged || this.AdminStore.isLogged">
             <button @click="() => {this.AnimesList = this.BacupAnimesList, this.Busca = ''}">↺</button>
-            <input  placeholder="Buscar..." @change="(e) => {filtrar(e.target.value), e.target.value = ''}" value="" />
+            <input  placeholder="Buscar..." @change="(e) => {filtrar(e.target.value)}" value="" />
         </div>
         
         <ul id="List">

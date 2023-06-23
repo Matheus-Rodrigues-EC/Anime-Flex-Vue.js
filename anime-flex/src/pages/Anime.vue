@@ -79,7 +79,7 @@ export default {
                         <h4 class="TitleSeason">Season {{ season.Season }} - {{ season.Name }}</h4>
                     </router-link>
                     <div v-if="this.AdminStore.isLogged" class="Admin" >
-                        <button class="warning" @click="() => this.$router.push(`/updateSeason/${season.Name}`)">Editar</button>
+                        <button class="warning" @click="() => this.$router.push(`/updateSeason/${season.Anime}/${season.Name}`)">Editar</button>
                         <button class="danger" @click="() => this.showConfirm = true">Deletar</button>
                     </div>
 

@@ -89,6 +89,17 @@ input{
   margin: 0 auto;
 }
 
+select{
+  width: 350px;
+  height: 50px;
+  padding-left: 15px;
+  border: none;
+  border-radius: 15px;
+  box-sizing: border-box;
+  animation: surgir 1s;
+  margin: 0 auto;
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;

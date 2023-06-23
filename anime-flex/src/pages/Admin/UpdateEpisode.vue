@@ -10,7 +10,7 @@ export default {
     props:{
         anime: '',
         season: '',
-        name: ''
+        episode: ''
     },
     data() {
         const AdminStore = useAdminStore();
@@ -19,7 +19,8 @@ export default {
             Anime: '', 
             Season: '', 
             Name: '',
-            Number: '',
+            Cover: '',
+            EpNumber: '',
             Url: '', 
             AdminStore,
             ShowNotification: false,
@@ -31,14 +32,15 @@ export default {
     },
     methods: {
         getEpisode() {
-            axios.get(`${import.meta.env.VITE_BASE_URL}/${this.anime}/${this.season}/${this.name}`)
+            axios.get(`${import.meta.env.VITE_BASE_URL}/${this.anime}/${this.season}/${this.episode}`)
                 .then((res) => {
-                    this.Id = res.data._id;
-                    this.Anime = res.data.Anime;
-                    this.Season = res.data.Season;
-                    this.Name = res.data.Name;
-                    this.Number = res.data.Number;
-                    this.Url = res.data.URL;
+                    this.Id = res.data.episodeInfo._id;
+                    this.Anime = res.data.episodeInfo.Anime;
+                    this.Season = res.data.episodeInfo.Season;
+                    this.Name = res.data.episodeInfo.Name;
+                    this.Cover = res.data.episodeInfo.Cover;
+                    this.EpNumber = res.data.episodeInfo.Number;
+                    this.Url = res.data.episodeInfo.URL;
                 })
                 .catch((error) => {
                     console.log(error.response.data);
@@ -91,11 +93,10 @@ export default {
     <div class="cadastro" >
         <form action="" @submit="updateEpisode" class="cadastro" >
             <img class="preview" :src="this.Cover" alt="Esperando Imagem..."/>
-            <input type="text" required @change="e => this.Anime = e.target.value" placeholder="Nome do Anime" :value="this.Anime" />
-            <input type="text" required @change="e => this.Season = e.target.value" placeholder="Nome da Temporada" :value="this.Season" />
-            <input type="text" required @change="e => this.Name = e.target.value" placeholder="Nome do Episódio" :value="this.Name" />
-            <input type="number" required @change="e => this.Number = e.target.value" placeholder="Número do Episódio" :value="this.Number" />
-            <input type="url" required @change="e => this.Url = e.target.value" placeholder="Url do Vídeo" :value="this.Url" />
+            <input type="text"      disabled v-model="Anime"    placeholder="Nome do Anime" />
+            <input type="text"      required v-model="Name"     placeholder="Nome do Episódio" />
+            <input type="number"    required v-model="EpNumber" placeholder="Número do Episódio" />
+            <input type="url"       required v-model="Url"      placeholder="Url do Vídeo" />
             <button type="submit">Atualizar Episódio</button>
         </form>
 

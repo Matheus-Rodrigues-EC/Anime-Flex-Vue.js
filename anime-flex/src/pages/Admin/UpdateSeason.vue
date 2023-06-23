@@ -8,6 +8,7 @@ export default {
 
     },
     props:{
+        anime: '',
         season: ''
     },
     data() {
@@ -28,13 +29,15 @@ export default {
     },
     methods:{
         getSeason() {
-            axios.get(`${import.meta.env.VITE_BASE_URL}/season/${this.season}`)
+            axios.get(`${import.meta.env.VITE_BASE_URL}/season/${this.anime}/${this.season}`)
                 .then((res) => {
-                    this.Id = res.data.Season._id;
-                    this.Anime = res.data.Season.Anime;
-                    this.Season = res.data.Season.Season;
-                    this.Cover = res.data.Season.Cover;
-                    this.Name = res.data.Season.Name;
+                    console.log(res.data)
+                    this.Id = res.data.seasonInfo._id;
+                    this.Anime = res.data.seasonInfo.Anime;
+                    this.Season = res.data.seasonInfo.Season;
+                    this.Cover = res.data.seasonInfo.Cover;
+                    this.Name = res.data.seasonInfo.Name;
+                    this.SeasonList = res.data.listSeason;
                 })
                 .catch((error) => {
                     console.log(error);
@@ -85,10 +88,10 @@ export default {
     <div >
         <form action="" @submit="updateSeason" class="cadastro" >
             <img class="preview" :src="this.Cover" alt="Esperando Imagem..."/>
-            <input type="text" required @change="(e) => this.Anime = e.target.value" placeholder="Nome do Anime" :value="this.Anime" />
-            <input type="number" required @change="(e) => this.Season = e.target.value" placeholder="Número da Temporada" :value="this.Season" />
-            <input type="url" required @change="(e) => this.Cover = e.target.value" placeholder="Url da imagem" :value="this.Cover" />
-            <input type="text" required @change="(e) => this.Name = e.target.value" placeholder="Nome da Temporada" :value="this.Name" />
+            <input type="text"      disabled v-model="Anime"    placeholder="Nome do Anime" />
+            <input type="text"      disabled v-model="Name"     placeholder="Nome da Temporada" />
+            <input type="number"    required v-model="Season"   placeholder="Número da Temporada" />
+            <input type="url"       required v-model="Cover"    placeholder="Url da imagem" />
             <button type="submit">Atualizar Temporada</button>
         </form>
 

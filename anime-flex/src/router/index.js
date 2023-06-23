@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
+
 import SignIn from '../pages/SignIn.vue';
 import SignUp from '../pages/SignUp.vue';
 import Home from '../pages/Home.vue';
@@ -7,6 +8,7 @@ import Season from '../pages/Season.vue';
 import Episode from '../pages/Episode.vue';
 import Profile from '../pages/Profile.vue';
 
+//  Admin Routes
 import AdminLogin from '../pages/Admin/AdminLogin.vue';
 import AdminHome from '../pages/Admin/AdminHome.vue';
 import CreateAdmin from '../pages/Admin/CreateAdmin.vue';
@@ -35,9 +37,9 @@ const routes = [
     { path: '/CreateAnime', name: 'CreateAnime', component: CreateAnime},
     { path: '/CreateSeason', name: 'CreateSeason', component: CreateSeason},
     { path: '/CreateEpisode', name: 'CreateEpisode', component: CreateEpisode},
-    { path: '/UpdateAnime/:name', name: 'UpdateAnime', component: UpdateAnime, props: true},
-    { path: '/UpdateSeason/:season', name: 'UpdateSeason', component: UpdateSeason, props: true},
-    { path: '/UpdateEpisode/:anime/:season/:name', name: 'UpdateEpisode', component: UpdateEpisode, props: true},
+    { path: '/UpdateAnime/:anime', name: 'UpdateAnime', component: UpdateAnime, props: true},
+    { path: '/UpdateSeason/:anime/:season', name: 'UpdateSeason', component: UpdateSeason, props: true},
+    { path: '/UpdateEpisode/:anime/:season/:episode', name: 'UpdateEpisode', component: UpdateEpisode, props: true},
 
     
 
