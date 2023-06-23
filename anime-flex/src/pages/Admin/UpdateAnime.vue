@@ -77,6 +77,7 @@ export default {
             <img class="preview" :src="this.Cover" alt="Esperando Imagem..."/>
             <input  type="url"  required v-model="Cover"    placeholder="Url da imagem"  />
             <input  type="text" required v-model="Name"     placeholder="Nome do Anime"  />
+
             <button type="submit">Atualizar Anime</button>
         </form>
 

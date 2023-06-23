@@ -85,13 +85,14 @@ export default {
 </script>
 
 <template>
-    <div >
+    <div class="cadastro">
         <form action="" @submit="updateSeason" class="cadastro" >
             <img class="preview" :src="this.Cover" alt="Esperando Imagem..."/>
             <input type="text"      disabled v-model="Anime"    placeholder="Nome do Anime" />
             <input type="text"      disabled v-model="Name"     placeholder="Nome da Temporada" />
             <input type="number"    required v-model="Season"   placeholder="Número da Temporada" />
             <input type="url"       required v-model="Cover"    placeholder="Url da imagem" />
+
             <button type="submit">Atualizar Temporada</button>
         </form>
 
@@ -102,5 +103,12 @@ export default {
 </template>
 
 <style scoped>
+
+.cadastro{
+    display: flex;
+    flex-direction: column;
+    margin: 3.5rem auto;
+    gap: 15px;
+}
 
 </style>

@@ -58,8 +58,8 @@ export default {
     <div class="cadastro" >
         <form action="" @submit="createAdmin" class="cadastro" >
             <label>Cadastrar Novo Administrador</label>
-            <input type="text" required @change="e => this.name = e.target.value" placeholder="Admin Name" value="" />
-            <input type="password" required @change="e => this.password = e.target.value" placeholder="Password" value="" />
+            <input type="text" v-model="this.name" placeholder="Admin Name"/>
+            <input type="password" v-model="this.password" placeholder="Password"/>
             <button type="submit">Enviar</button>
         </form>
 

@@ -40,8 +40,8 @@ export default {
     <div class="cadastro" >
         <form action="" @submit="adminLogin" class="cadastro" >
             <label>Entrar Como Administrador</label>
-            <input type="text" required @change="e => this.name = e.target.value" placeholder="Name" value="" />
-            <input type="password" required @change="e => this.password = e.target.value" placeholder="Password" value="" />
+            <input type="text" v-model="this.name" placeholder="name"/>
+            <input type="password" v-model="this.password" placeholder="Password"/>
             <button type="submit">Entrar</button>
         </form>
     </div>
@@ -57,5 +57,6 @@ export default {
 
 button{
     transition: border-color 1s;
+    text-decoration-color: aliceblue;
 }
 </style>
