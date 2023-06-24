@@ -8,14 +8,15 @@ export default {
         const AdminStore = useAdminStore();
         const UserStore = useUserStore();
         return {
-            AnimesList: [],
-            BacupAnimesList: [],
+            BackupAnimesList: [],
+            AnimeFiltered: [],
             showConfirm: false,
             AdminStore,
             UserStore,
             ShowNotification: false,
             info: '',
             Busca: '',
+            reversedBusca: '',
             
             Cover: '',
             Name: '',
@@ -25,12 +26,31 @@ export default {
     created() {
         this.getAnimes();
     },
+    computed:{
+        AnimesList() {
+            if(this.Busca === ''){
+                return this.BackupAnimesList;
+            }else{
+                const filtered = this.BackupAnimesList.filter((anime) => {
+                if(anime.Name.toLowerCase().includes(this.Busca.toLowerCase())){
+                    this._id = anime._id;
+                    this.Name = anime.Name;
+                    this.Cover = anime.Cover;
+                    const Anime = [... [{_id: this._id, Name: this.Name, Cover: this.Cover}]];
+                    return Anime;
+                }
+            })
+            return filtered;
+            }
+        }
+        
+    },
     methods: {
         getAnimes() {
             axios.get(`${import.meta.env.VITE_BASE_URL}/animes`)
                 .then((res) => {
                     this.AnimesList = res.data;
-                    this.BacupAnimesList = res.data;
+                    this.BackupAnimesList = res.data;
                 })
                 .catch((error) => {
                     alert(error);
@@ -79,20 +99,6 @@ export default {
             setTimeout(() => {
                 this.ShowNotification = false;
             }, 4500);
-        },
-        filtrar(value){
-            const newArr = this.BacupAnimesList.filter((anime) => {
-                this.Busca = value;
-                if(anime.Name.toLowerCase().includes(this.Busca.toLowerCase())){
-                    this._id = anime._id;
-                    this.Name = anime.Name;
-                    this.Cover = anime.Cover;
-                    const Anime = [... [{_id: this._id, Name: this.Name, Cover: this.Cover}]];
-                    return Anime;
-                }
-            })
-            this.AnimesList = newArr;
-
         }
     }
 }
@@ -102,8 +108,8 @@ export default {
 <template>
     <div class="Anime_List">
         <div class="filtro" v-if="this.UserStore.isLogged || this.AdminStore.isLogged">
-            <button @click="() => {this.AnimesList = this.BacupAnimesList, this.Busca = ''}">↺</button>
-            <input  placeholder="Buscar..." @change="(e) => {filtrar(e.target.value)}" value="" />
+            <button @click="this.AnimesList = this.BackupAnimesList,  this.Busca = ''">↺</button>
+            <input  placeholder="Buscar..." v-model="Busca" />
         </div>
         
         <ul id="List">
@@ -112,10 +118,10 @@ export default {
                     <img class="cover" :src="Anime.Cover" />
                     <p   class="anime_title">{{ Anime.Name }}  </p>
                 </router-link>
-                <button class="favoriteTrue" v-if="this.UserStore.isLogged" @click="() => {addFavorite(Anime.Name)}">S2</button>
+                <button class="favoriteTrue" v-if="this.UserStore.isLogged" @click="addFavorite(Anime.Name)">S2</button>
                 <div v-if="this.AdminStore.isLogged" class="Admin" >
-                        <button class="warning" @click="() => this.$router.push(`/updateAnime/${Anime.Name}`)">Editar</button>
-                        <button class="danger" @click="() => this.showConfirm = true /*deleteAnime(Anime._id)*/" >Deletar</button>
+                        <button class="warning" @click="this.$router.push(`/updateAnime/${Anime.Name}`)">Editar</button>
+                        <button class="danger" @click="this.showConfirm = true" >Deletar</button>
                 </div>
 
                 <div class="ContainerBox" v-show="showConfirm">
@@ -124,8 +130,8 @@ export default {
                             <h2>Confirmar exclusão do anime ?</h2>
                         </div>
                         <div class="buttons">
-                            <button class="Cancel" @click="() => this.showConfirm = false">Cancelar</button>
-                            <button class="danger" @click="() => deleteAnime(Anime._id)" >Confirmar</button>
+                            <button class="Cancel" @click="this.showConfirm = false">Cancelar</button>
+                            <button class="danger" @click="deleteAnime(Anime._id)" >Confirmar</button>
                         </div>
                     </div>
                 </div>

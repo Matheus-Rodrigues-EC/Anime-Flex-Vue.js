@@ -31,7 +31,6 @@ export default {
         getSeason() {
             axios.get(`${import.meta.env.VITE_BASE_URL}/season/${this.anime}/${this.season}`)
                 .then((res) => {
-                    console.log(res.data)
                     this.Id = res.data.seasonInfo._id;
                     this.Anime = res.data.seasonInfo.Anime;
                     this.Season = res.data.seasonInfo.Season;
@@ -89,7 +88,7 @@ export default {
         <form action="" @submit="updateSeason" class="cadastro" >
             <img class="preview" :src="this.Cover" alt="Esperando Imagem..."/>
             <input type="text"      disabled v-model="Anime"    placeholder="Nome do Anime" />
-            <input type="text"      disabled v-model="Name"     placeholder="Nome da Temporada" />
+            <input type="text"      required v-model="Name"     placeholder="Nome da Temporada" />
             <input type="number"    required v-model="Season"   placeholder="Número da Temporada" />
             <input type="url"       required v-model="Cover"    placeholder="Url da imagem" />
 
