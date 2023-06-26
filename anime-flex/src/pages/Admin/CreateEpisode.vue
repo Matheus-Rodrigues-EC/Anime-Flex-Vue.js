@@ -17,10 +17,40 @@ export default {
             Url: '',
             AdminStore,
             ShowNotification: false,
-            info: ''
+            info: '', 
+
+            AnimesList: [],
+            SeasonList: []
+        }
+    },
+    created(){
+        this.getAnimes();
+    },
+    computed: {
+        SeasonsList() {
+            this.getSeasons();
+            return (this.SeasonList);
         }
     },
     methods: {
+        getAnimes(){
+            axios.get(`${import.meta.env.VITE_BASE_URL}/animes`)
+                .then((res) => {
+                    this.AnimesList = res.data;
+                })
+                .catch((error) => {
+                    alert(error);
+                })
+        },
+        getSeasons(){
+            axios.get(`${import.meta.env.VITE_BASE_URL}/anime/${this.Anime}`)
+                .then((res) => {
+                    this.SeasonList = res.data.Seasons;
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        },
         createEpisode(e, anime, season_name, episode_name, episode_number, url) {
             e.preventDefault();
             anime = this.Anime, 
@@ -66,9 +96,14 @@ export default {
     <div >
         <form action="" @submit="createEpisode" class="cadastro" >
             <h2>Adicionar Episódio</h2>
-            <img class="preview" :src="this.Cover" alt="Esperando Imagem..."/>
-            <input type="text" v-model="this.Anime" placeholder="Nome do Anime"/>
-            <input type="text" v-model="this.Season" placeholder="Nome da Temporada"/>
+            <select name="AnimesList" v-model="Anime">
+                <option value="" selected >Selecione um Anime</option>
+                <option v-for="(anime) in AnimesList" :key="anime._id" :value="anime.Name" >{{ anime.Name }}</option>
+            </select>
+            <select name="SeasonsList" v-model="Season">
+                <option value="" selected >Selecione uma temporada</option>
+                <option v-for="(season) in SeasonsList" :key="season._id" :value="season.Name ">{{ season.Name }}</option>
+            </select>
             <input type="text" v-model="this.Name" placeholder="Nome do Episódio"/>
             <input type="number" v-model="this.Number" placeholder="Número do Episódio"/>
             <input type="url" v-model="this.Url" placeholder="Url do Vídeo"/>

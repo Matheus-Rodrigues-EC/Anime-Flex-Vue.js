@@ -16,10 +16,23 @@ export default {
             Name: '',
             AdminStore,
             ShowNotification: false,
-            info: ''
+            info: '',
+            AnimesList: []
         }
     },
+    created(){
+        this.getAnimes();
+    },
     methods: {
+        getAnimes(){
+            axios.get(`${import.meta.env.VITE_BASE_URL}/animes`)
+                .then((res) => {
+                    this.AnimesList = res.data;
+                })
+                .catch((error) => {
+                    alert(error);
+                })
+        },
         createSeason(e, anime, n_Season, season_cover, season_name) {
             e.preventDefault();
             anime = this.Anime;
@@ -64,7 +77,10 @@ export default {
         <form action="" @submit="createSeason" class="cadastro" >
             <h2>Adicionar Temporada</h2>
             <img class="preview" :src="this.Cover" alt="Esperando Imagem..."/>
-            <input type="text" v-model="this.Anime" placeholder="Nome do Anime"/>
+            <select name="AnimesList" v-model="Anime">
+                <option value="" selected >Selecione um Anime</option>
+                <option v-for="(anime) in AnimesList" :key="anime._id" :value="anime.Name" >{{ anime.Name }}</option>
+            </select>
             <input type="number" v-model="this.Season" placeholder="Número da Temporada"/>
             <input type="url" v-model="this.Cover" placeholder="Url da imagem"/>
             <input type="text" v-model="this.Name" placeholder="Nome da Temporada"/>

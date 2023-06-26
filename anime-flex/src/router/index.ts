@@ -1,4 +1,5 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { RouteLocationNormalized, createRouter, createWebHistory } from 'vue-router';
+import { useAdminStore } from '../stores/userStore';
 
 import SignIn from '../pages/SignIn.vue';
 import SignUp from '../pages/SignUp.vue';
@@ -32,14 +33,14 @@ const routes = [
 
 //  Admin Routes
     { path: '/admin', name: 'AdminLogin', component: AdminLogin},
-    { path: '/adminhome', name: 'AdminHome', component: AdminHome},
-    { path: '/createAdmin', name: 'CreateAdmin', component: CreateAdmin},
-    { path: '/CreateAnime', name: 'CreateAnime', component: CreateAnime},
-    { path: '/CreateSeason', name: 'CreateSeason', component: CreateSeason},
-    { path: '/CreateEpisode', name: 'CreateEpisode', component: CreateEpisode},
-    { path: '/UpdateAnime/:anime', name: 'UpdateAnime', component: UpdateAnime, props: true},
-    { path: '/UpdateSeason/:anime/:season', name: 'UpdateSeason', component: UpdateSeason, props: true},
-    { path: '/UpdateEpisode/:anime/:season/:episode', name: 'UpdateEpisode', component: UpdateEpisode, props: true},
+    { path: '/adminhome', name: 'AdminHome', component: AdminHome, meta:{ permissions: ['admin']}},
+    { path: '/createAdmin', name: 'CreateAdmin', component: CreateAdmin, meta:{ permissions: ['admin']}},
+    { path: '/CreateAnime', name: 'CreateAnime', component: CreateAnime, meta:{ permissions: ['admin']}},
+    { path: '/CreateSeason', name: 'CreateSeason', component: CreateSeason, meta:{ permissions: ['admin']}},
+    { path: '/CreateEpisode', name: 'CreateEpisode', component: CreateEpisode, meta:{ permissions: ['admin']}},
+    { path: '/UpdateAnime/:anime', name: 'UpdateAnime', component: UpdateAnime, props: true, meta:{ permissions: ['admin']}},
+    { path: '/UpdateSeason/:anime/:season', name: 'UpdateSeason', component: UpdateSeason, props: true, meta:{ permissions: ['admin']}},
+    { path: '/UpdateEpisode/:anime/:season/:episode', name: 'UpdateEpisode', component: UpdateEpisode, props: true, meta:{ permissions: ['admin']}},
 
     
 
@@ -48,6 +49,16 @@ const routes = [
 const router = createRouter({
     history: createWebHistory(),
     routes
+})
+
+router.beforeEach((to: RouteLocationNormalized, _) => {
+    const AdminStore = useAdminStore();
+
+    if(to.meta.permissions){
+        if(!AdminStore.isLogged){
+            return { path: "/admin"}
+        }
+    }
 })
 
 export default router
