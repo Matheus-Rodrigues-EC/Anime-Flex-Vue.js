@@ -72,7 +72,7 @@ export default {
                     this.showNotification();
                     localStorage.removeItem('Master');
                     this.AdminStore.clearAdmin();
-                    this.$router.push('/admin');
+                    this.$router.push('/');
                 })
                 .catch((error) => {
                     this.info = error.response.data;
@@ -96,7 +96,7 @@ export default {
         <router-link to="/">Home</router-link>
         <div v-if="this.AdminStore.adminName" class="account">
             <p @click="this.$router.push('/adminHome')">Bem Vindo, Mestre {{ this.AdminStore.adminName }}</p>
-            <p @click="ogOutAdmin" >Desconectar</p>
+            <p @click="logOutAdmin" >Desconectar</p>
         </div>
         <div v-else-if="this.UserStore.userName" class="account">
             <p @click="this.$router.push(`/profile/${this.UserStore.userName}`)" >Bem Vindo, {{ this.UserStore.showName }}</p>

@@ -10,7 +10,6 @@ import Episode from '../pages/Episode.vue';
 import Profile from '../pages/Profile.vue';
 
 //  Admin Routes
-import AdminLogin from '../pages/Admin/AdminLogin.vue';
 import AdminHome from '../pages/Admin/AdminHome.vue';
 import CreateAdmin from '../pages/Admin/CreateAdmin.vue';
 import CreateAnime from '../pages/Admin/CreateAnime.vue';
@@ -32,7 +31,6 @@ const routes = [
     { path: '/profile/:user', name: 'Profile', component: Profile },
 
 //  Admin Routes
-    { path: '/admin', name: 'AdminLogin', component: AdminLogin},
     { path: '/adminhome', name: 'AdminHome', component: AdminHome, meta:{ permissions: ['admin']}},
     { path: '/createAdmin', name: 'CreateAdmin', component: CreateAdmin, meta:{ permissions: ['admin']}},
     { path: '/CreateAnime', name: 'CreateAnime', component: CreateAnime, meta:{ permissions: ['admin']}},

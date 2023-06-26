@@ -57,10 +57,10 @@ export default {
         <form action="" @submit="sendSignUp" class="cadastro" >
             <label>Cadastro</label>
             <img class="preview" :src="this.image" alt="Esperando Imagem..."/>
-            <input type="text" required @change="e => this.name = e.target.value" placeholder="Name" value="" />
-            <input type="url" required @change="e => this.image = e.target.value" placeholder="Url da imagem" value="" />
-            <input type="email" required @change="e => this.email = e.target.value" placeholder="Email" value="" />
-            <input type="password" required @change="e => this.password = e.target.value" placeholder="Password" value="" />
+            <input type="text"      required v-model="this.name"        placeholder="Name"  />
+            <input type="url"       required v-model="this.image"       placeholder="Url da imagem"  />
+            <input type="email"     required v-model="this.email"       placeholder="Email"  />
+            <input type="password"  required v-model="this.password"    placeholder="Password"  />
             <button type="submit">Cadastrar</button>
         </form>
 

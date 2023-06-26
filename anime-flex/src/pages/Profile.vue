@@ -116,8 +116,8 @@ export default {
     <div class="Container">
         <div class="EditOn" v-if="editing">
             <img :src="this.image" />
-            <input placeholder="Url da Imagem" @change="(e) => this.image = e.target.value" :value="this.image" />
-            <input placeholder="Nome de Usuário" @change="(e) => this.name = e.target.value" :value="this.name" />
+            <input placeholder="Url da Imagem" v-model="this.image"  />
+            <input placeholder="Nome de Usuário" v-model="this.name"  />
             <div class="buttons">
                 <button class="Cancel" @click="this.editing = false">Cancelar</button>
                 <button class="warning" @click="updateProfile" >Confirmar</button>
