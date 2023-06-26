@@ -28,7 +28,6 @@ export default {
                     this.$router.push('/adminHome'); 
                 })
                 .catch((error) => {
-                    // console.log(error)
                     alert(error.response.data)
                 })
         }

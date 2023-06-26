@@ -32,15 +32,15 @@ export default {
                 return this.BackupAnimesList;
             }else{
                 const filtered = this.BackupAnimesList.filter((anime) => {
-                if(anime.Name.toLowerCase().includes(this.Busca.toLowerCase())){
-                    this._id = anime._id;
-                    this.Name = anime.Name;
-                    this.Cover = anime.Cover;
-                    const Anime = [... [{_id: this._id, Name: this.Name, Cover: this.Cover}]];
-                    return Anime;
-                }
-            })
-            return filtered;
+                    if(anime.Name.toLowerCase().includes(this.Busca.toLowerCase())){
+                        this._id = anime._id;
+                        this.Name = anime.Name;
+                        this.Cover = anime.Cover;
+                        const Anime = [... [{_id: this._id, Name: this.Name, Cover: this.Cover}]];
+                        return Anime;
+                    }
+                })
+                return filtered;
             }
         }
         
@@ -49,7 +49,6 @@ export default {
         getAnimes() {
             axios.get(`${import.meta.env.VITE_BASE_URL}/animes`)
                 .then((res) => {
-                    this.AnimesList = res.data;
                     this.BackupAnimesList = res.data;
                 })
                 .catch((error) => {
@@ -113,7 +112,7 @@ export default {
         </div>
         
         <ul id="List">
-            <li @click="() => AnimeName(Anime.Name)" class="Anime_Item" v-for="(Anime) in this.AnimesList" :key="Anime._id" >
+            <li @click="AnimeName(Anime.Name)" class="Anime_Item" v-for="(Anime) in this.AnimesList" :key="Anime._id" >
                 <router-link :to="'/anime/'+Anime.Name">
                     <img class="cover" :src="Anime.Cover" />
                     <p   class="anime_title">{{ Anime.Name }}  </p>

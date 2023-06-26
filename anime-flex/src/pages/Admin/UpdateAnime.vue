@@ -33,7 +33,7 @@ export default {
                     this.Name = res.data.Anime.Name
                 })
                 .catch((error) => {
-                    console.log(error);
+                    alert(error);
                 })
         },
         updateAnime(e, id, cover, name) {

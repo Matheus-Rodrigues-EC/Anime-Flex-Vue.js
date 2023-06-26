@@ -48,7 +48,7 @@ export default {
                     this.SeasonList = res.data.Seasons;
                 })
                 .catch((error) => {
-                    console.log(error);
+                    alert(error);
                 })
         },
         createEpisode(e, anime, season_name, episode_name, episode_number, url) {

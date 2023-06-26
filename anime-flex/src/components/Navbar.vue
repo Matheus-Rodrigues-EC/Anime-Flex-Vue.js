@@ -95,12 +95,12 @@ export default {
     <div class="header">
         <router-link to="/">Home</router-link>
         <div v-if="this.AdminStore.adminName" class="account">
-            <p @click="() => this.$router.push('/adminHome')">Bem Vindo, Mestre {{ this.AdminStore.adminName }}</p>
-            <p @click="() => logOutAdmin()" >Desconectar</p>
+            <p @click="this.$router.push('/adminHome')">Bem Vindo, Mestre {{ this.AdminStore.adminName }}</p>
+            <p @click="ogOutAdmin" >Desconectar</p>
         </div>
         <div v-else-if="this.UserStore.userName" class="account">
             <p @click="this.$router.push(`/profile/${this.UserStore.userName}`)" >Bem Vindo, {{ this.UserStore.showName }}</p>
-            <p @click="() => logOut()" >Sair</p>
+            <p @click="logOut" >Sair</p>
         </div>
         <div v-else class="account">
             <router-link to="/signin">Entrar</router-link>

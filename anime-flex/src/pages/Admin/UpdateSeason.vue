@@ -39,7 +39,7 @@ export default {
                     this.SeasonList = res.data.listSeason;
                 })
                 .catch((error) => {
-                    console.log(error);
+                    alert(error);
                 })
         },
         updateSeason(e, id, anime, n_Season, season_cover, season_name) {

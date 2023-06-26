@@ -26,8 +26,6 @@ export default {
         getSeason() {
             axios.get(`${import.meta.env.VITE_BASE_URL}/${this.name}/${this.season}`)
                 .then((res) => {
-                    console.log(this.name);
-                    console.log(this.season);
                     this.SeasonInfo = res.data.Season;
                     this.EpisodesList = res.data.Episodes
                 })
@@ -79,8 +77,8 @@ export default {
                         <h4>{{ episode.Number }}. {{ episode.Name }}</h4>
                     </router-link>
                     <div v-if="this.AdminStore.isLogged" class="Admin" >
-                        <button class="warning" @click="() => this.$router.push(`/updateEpisode/${episode.Anime}/${episode.Season}/${episode.Name}`)">Editar</button>
-                        <button class="danger" @click="() => this.showConfirm = true">Deletar</button>
+                        <button class="warning" @click="this.$router.push(`/updateEpisode/${episode.Anime}/${episode.Season}/${episode.Name}`)">Editar</button>
+                        <button class="danger" @click="this.showConfirm = true">Deletar</button>
                     </div>
 
                     <div class="ContainerBox" v-show="showConfirm">
@@ -89,8 +87,8 @@ export default {
                                 <h2>Confirmar exclusão do episódio ?</h2>
                             </div>
                             <div class="buttons">
-                                <button class="Cancel" @click="() => this.showConfirm = false">Cancelar</button>
-                                <button class="danger" @click="() => deleteEpisode(episode._id)" >Confirmar</button>
+                                <button class="Cancel" @click="his.showConfirm = false">Cancelar</button>
+                                <button class="danger" @click="deleteEpisode(episode._id)" >Confirmar</button>
                             </div>
                         </div>
                     </div>

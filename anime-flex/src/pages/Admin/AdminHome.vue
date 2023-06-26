@@ -110,13 +110,13 @@ export default {
             <div>
                 <label>Controle de Administradores</label>
                 <div class="lista">
-                    <button @click="() => {this.$router.push('/createAdmin');}">Adicionar   Administrador</button>
-                    <button @click="() => {getAdminsList()}">Listar Administradores</button>
+                    <button @click="this.$router.push('/createAdmin');">Adicionar   Administrador</button>
+                    <button @click="getAdminsList">Listar Administradores</button>
                 </div>
                 <ul v-if="listAdmins.length > 0">
                     <li v-for="(admin) in listAdmins" :key="admin._id" >
                         <p>{{ admin.adminName }}</p>
-                        <button class="danger" @click="() => this.showConfirmAdmin = true" >Remover</button>
+                        <button class="danger" @click="this.showConfirmAdmin = true" >Remover</button>
 
                         <div class="ContainerBox" v-show="showConfirmAdmin">
                             <div class="confirmBox">
@@ -124,8 +124,8 @@ export default {
                                     <h2>Confirmar remoção desse Administrador ?</h2>
                                 </div>
                                 <div class="buttons">
-                                    <button class="Cancel" @click="() => this.showConfirmAdmin = false">Cancelar</button>
-                                    <button class="danger" @click="() => deleteAdmin(admin.adminName)" >Confirmar</button>
+                                    <button class="Cancel" @click="this.showConfirmAdmin = false">Cancelar</button>
+                                    <button class="danger" @click="deleteAdmin(admin.adminName)" >Confirmar</button>
                                 </div>
                             </div>
                         </div>
@@ -136,19 +136,19 @@ export default {
             <div> 
                 <label>Controle de Conteúdo</label>
                 <div class="lista">
-                    <button @click="() => {this.$router.push('/createAnime');}">Adicionar Anime</button>
-                    <button @click="() => {this.$router.push('/createSeason');}">Adicionar Temporada</button>
-                    <button @click="() => {this.$router.push('/createEpisode');}">Adicionar Episódio</button>
+                    <button @click="this.$router.push('/createAnime');">Adicionar Anime</button>
+                    <button @click="this.$router.push('/createSeason');">Adicionar Temporada</button>
+                    <button @click="this.$router.push('/createEpisode');">Adicionar Episódio</button>
                 </div>
             </div>
             <div>
                 <label>Controle de Membros</label>
                 <div class="lista">
-                    <button @click="() => getMembersList()" >Listar Membros</button>
+                    <button @click="getMembersList" >Listar Membros</button>
                     <ul v-if="listMembers.length > 0">
                         <li v-for="(member) in listMembers" :key="member._id" >
                             <p>{{ member.name }}</p>
-                            <button class="danger" @click="() => this.showConfirmBan = true" >Ban</button>
+                            <button class="danger" @click="this.showConfirmBan = true" >Ban</button>
 
                             <div class="ContainerBox" v-show="showConfirmBan">
                             <div class="confirmBox">
@@ -156,8 +156,8 @@ export default {
                                     <h2>Confirmar Banimento desse Membro ?</h2>
                                 </div>
                                 <div class="buttons">
-                                    <button class="Cancel" @click="() => this.showConfirmBan = false">Cancelar</button>
-                                    <button class="danger" @click="() => banMember(member.name)" >Confirmar</button>
+                                    <button class="Cancel" @click="this.showConfirmBan = false">Cancelar</button>
+                                    <button class="danger" @click="banMember(member.name)" >Confirmar</button>
                                 </div>
                             </div>
                         </div>

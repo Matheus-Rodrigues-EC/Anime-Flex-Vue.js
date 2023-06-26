@@ -30,22 +30,31 @@ export default {
     },
     created(){
         this.getEpisode();
+        this.getSeasons();
     },
     methods: {
         getEpisode() {
             axios.get(`${import.meta.env.VITE_BASE_URL}/${this.anime}/${this.season}/${this.episode}`)
                 .then((res) => {
-                    this.Id = res.data.episodeInfo._id;
-                    this.Anime = res.data.episodeInfo.Anime;
-                    this.Season = res.data.episodeInfo.Season;
-                    this.Name = res.data.episodeInfo.Name;
-                    this.Cover = res.data.episodeInfo.Cover;
-                    this.EpNumber = res.data.episodeInfo.Number;
-                    this.Url = res.data.episodeInfo.URL;
-                    this.SeasonList = res.data.listSeason;
+                    this.Id = res.data._id;
+                    this.Anime = res.data.Anime;
+                    this.Season = res.data.Season;
+                    this.Name = res.data.Name;
+                    this.Cover = res.data.Cover;
+                    this.EpNumber = res.data.Number;
+                    this.Url = res.data.URL;
                 })
                 .catch((error) => {
-                    console.log(error.response.data);
+                    alert(error.response.data);
+                })
+        },
+        getSeasons(){
+            axios.get(`${import.meta.env.VITE_BASE_URL}/anime/${this.anime}`)
+                .then((res) => {
+                    this.SeasonList = res.data.Seasons;
+                })
+                .catch((error) => {
+                    alert(error);
                 })
         },
         updateEpisode(e, id, anime, season_name, episode_name, episode_number, url) {
@@ -54,7 +63,7 @@ export default {
             anime = this.Anime;
             season_name = this.Season;
             episode_name = this.Name;
-            episode_number = this.Number;
+            episode_number = this.EpNumber;
             url = this.Url
 
             const body = {anime, season_name, episode_name, episode_number, url};

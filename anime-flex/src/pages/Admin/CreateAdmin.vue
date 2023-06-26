@@ -34,7 +34,6 @@ export default {
                 .then((res) => {
                     this.name = '';
                     this.password = '';
-                    // console.log("Administrador Cadastrado.");
                     this.info = "Administrador Cadastrado.";
                     this.showNotification();
                     this.$router.push('/adminHome');

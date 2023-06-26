@@ -76,7 +76,6 @@ export default {
                 }
             })
                 .then((res) => {
-                    // console.log(res.data);
                     this.favorites = res.data
                 })
                 .catch((error) => {
@@ -120,8 +119,8 @@ export default {
             <input placeholder="Url da Imagem" @change="(e) => this.image = e.target.value" :value="this.image" />
             <input placeholder="Nome de Usuário" @change="(e) => this.name = e.target.value" :value="this.name" />
             <div class="buttons">
-                <button class="Cancel" @click="() => this.editing = false">Cancelar</button>
-                <button class="warning" @click="() => updateProfile()" >Confirmar</button>
+                <button class="Cancel" @click="this.editing = false">Cancelar</button>
+                <button class="warning" @click="updateProfile" >Confirmar</button>
             </div>
         </div>
         <div class="Infos" v-else>
@@ -129,16 +128,16 @@ export default {
             <h2>Olá, {{ this.UserStore.userName }}.</h2>
             <label>Email: {{ this.UserStore.userEmail }}</label>
             <div class="buttons">
-                <button class="warning" @click="() => {this.editing = true, this.getInfoProfile()}">Editar Perfil</button>
-                <button class="danger" @click="() => this.showConfirm = true">Excluir Conta</button>
+                <button class="warning" @click="this.editing = true, this.getInfoProfile">Editar Perfil</button>
+                <button class="danger" @click="this.showConfirm = true">Excluir Conta</button>
             </div>
             <div class="list" >
                 <p v-if="this.favorites.length === 0">Você não possui nenhum anime favoritado</p>
                 <ul v-else>
                     <h3>Favoritos</h3>
-                    <li v-for="(favorito) in favorites" :key="favorito._id" @click="() => null" >
+                    <li v-for="(favorito) in favorites" :key="favorito._id">
                         <p>{{ favorito.Anime }}</p>
-                        <button class="desfavoritar" @click="() => this.deleteFavorite(favorito.Anime)" alt="Remover dos Favoritos">S/2</button>
+                        <button class="desfavoritar" @click="this.deleteFavorite(favorito.Anime)" alt="Remover dos Favoritos">S/2</button>
                     </li>
                 </ul>
             </div>
@@ -151,8 +150,8 @@ export default {
                     <h2>Confirmar exclusão de conta ?</h2>
                 </div>
                 <div class="buttons">
-                    <button class="Cancel" @click="() => this.showConfirm = false">Cancelar</button>
-                    <button class="danger" @click="() => deleteAccount()" >Confirmar</button>
+                    <button class="Cancel" @click="this.showConfirm = false">Cancelar</button>
+                    <button class="danger" @click="deleteAccount" >Confirmar</button>
                 </div>
             </div>
         </div>

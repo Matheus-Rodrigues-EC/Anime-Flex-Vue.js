@@ -33,7 +33,7 @@ export default {
                     this.seasons = Seasons;
                 })
                 .catch((error) => {
-                    console.log(error.response.data);
+                    alert(error.response.data);
                 })
         },
         deleteSeason(id){
@@ -79,8 +79,8 @@ export default {
                         <h4 class="TitleSeason">Season {{ season.Season }} - {{ season.Name }}</h4>
                     </router-link>
                     <div v-if="this.AdminStore.isLogged" class="Admin" >
-                        <button class="warning" @click="() => this.$router.push(`/updateSeason/${season.Anime}/${season.Name}`)">Editar</button>
-                        <button class="danger" @click="() => this.showConfirm = true">Deletar</button>
+                        <button class="warning" @click="this.$router.push(`/updateSeason/${season.Anime}/${season.Name}`)">Editar</button>
+                        <button class="danger" @click="this.showConfirm = true">Deletar</button>
                     </div>
 
                     <div class="ContainerBox" v-show="showConfirm">
@@ -89,8 +89,8 @@ export default {
                                 <h2>Confirmar exclusão da temporada ?</h2>
                             </div>
                             <div class="buttons">
-                                <button class="Cancel" @click="() => this.showConfirm = false">Cancelar</button>
-                                <button class="danger" @click="() => deleteSeason(season._id)" >Confirmar</button>
+                                <button class="Cancel" @click="this.showConfirm = false">Cancelar</button>
+                                <button class="danger" @click="deleteSeason(season._id)" >Confirmar</button>
                             </div>
                         </div>
                     </div>
