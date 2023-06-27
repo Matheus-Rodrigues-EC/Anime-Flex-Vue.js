@@ -77,7 +77,7 @@ export default {
                         <h4>{{ episode.Number }}. {{ episode.Name }}</h4>
                     </router-link>
                     <div v-if="this.AdminStore.isLogged" class="Admin" >
-                        <button class="warning" @click="this.$router.push(`/updateEpisode/${episode.Anime}/${episode.Season}/${episode.Name}`)">Editar</button>
+                        <button class="warning" @click="this.$router.push(`/FormEpisode/${episode.Anime}/${episode.Season}/${episode.Name}`)">Editar</button>
                         <button class="danger" @click="this.showConfirm = true">Deletar</button>
                     </div>
 

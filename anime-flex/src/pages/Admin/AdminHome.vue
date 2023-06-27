@@ -136,9 +136,9 @@ export default {
             <div> 
                 <label>Controle de Conteúdo</label>
                 <div class="lista">
-                    <button @click="this.$router.push('/createAnime');">Adicionar Anime</button>
-                    <button @click="this.$router.push('/createSeason');">Adicionar Temporada</button>
-                    <button @click="this.$router.push('/createEpisode');">Adicionar Episódio</button>
+                    <button @click="this.$router.push('/FormAnime');">Adicionar Anime</button>
+                    <button @click="this.$router.push('/FormSeason');">Adicionar Temporada</button>
+                    <button @click="this.$router.push('/FormEpisode');">Adicionar Episódio</button>
                 </div>
             </div>
             <div>

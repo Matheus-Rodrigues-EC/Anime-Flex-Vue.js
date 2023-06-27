@@ -119,7 +119,7 @@ export default {
                 </router-link>
                 <button class="favoriteTrue" v-if="this.UserStore.isLogged" @click="addFavorite(Anime.Name)">S2</button>
                 <div v-if="this.AdminStore.isLogged" class="Admin" >
-                        <button class="warning" @click="this.$router.push(`/updateAnime/${Anime.Name}`)">Editar</button>
+                        <button class="warning" @click="this.$router.push(`/FormAnime/${Anime.Name}`)">Editar</button>
                         <button class="danger" @click="this.showConfirm = true" >Deletar</button>
                 </div>
 
