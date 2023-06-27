@@ -12,12 +12,9 @@ import Profile from '../pages/Profile.vue';
 //  Admin Routes
 import AdminHome from '../pages/Admin/AdminHome.vue';
 import CreateAdmin from '../pages/Admin/CreateAdmin.vue';
-import CreateAnime from '../pages/Admin/CreateAnime.vue';
-import CreateSeason from '../pages/Admin/CreateSeason.vue';
-import CreateEpisode from '../pages/Admin/CreateEpisode.vue';
-import UpdateAnime from '../pages/Admin/UpdateAnime.vue';
-import UpdateSeason from '../pages/Admin/UpdateSeason.vue';
-import UpdateEpisode from '../pages/Admin/UpdateEpisode.vue';
+import FormAnime from '../pages/Admin/FormAnime.vue';
+import FormSeason from '../pages/Admin/FormSeason.vue';
+import FormEpisode from '../pages/Admin/FormEpisode.vue';
 
 
 
@@ -33,12 +30,13 @@ const routes = [
 //  Admin Routes
     { path: '/adminhome', name: 'AdminHome', component: AdminHome, meta:{ permissions: ['admin']}},
     { path: '/createAdmin', name: 'CreateAdmin', component: CreateAdmin, meta:{ permissions: ['admin']}},
-    { path: '/CreateAnime', name: 'CreateAnime', component: CreateAnime, meta:{ permissions: ['admin']}},
-    { path: '/CreateSeason', name: 'CreateSeason', component: CreateSeason, meta:{ permissions: ['admin']}},
-    { path: '/CreateEpisode', name: 'CreateEpisode', component: CreateEpisode, meta:{ permissions: ['admin']}},
-    { path: '/UpdateAnime/:anime', name: 'UpdateAnime', component: UpdateAnime, props: true, meta:{ permissions: ['admin']}},
-    { path: '/UpdateSeason/:anime/:season', name: 'UpdateSeason', component: UpdateSeason, props: true, meta:{ permissions: ['admin']}},
-    { path: '/UpdateEpisode/:anime/:season/:episode', name: 'UpdateEpisode', component: UpdateEpisode, props: true, meta:{ permissions: ['admin']}},
+    
+    { path: '/FormAnime', name: 'CreateAnime', component: FormAnime, meta:{ permissions: ['admin']}},
+    { path: '/FormSeason', name: 'CreateSeason', component: FormSeason, meta:{ permissions: ['admin']}},
+    { path: '/FormEpisode', name: 'CreateEpisode', component: FormEpisode, meta:{ permissions: ['admin']}},
+    { path: '/FormAnime/:anime', name: 'UpdateAnime', component: FormAnime, props: true, meta:{ permissions: ['admin']}},
+    { path: '/FormSeason/:anime/:season', name: 'UpdateSeason', component: FormSeason, props: true, meta:{ permissions: ['admin']}},
+    { path: '/FormEpisode/:anime/:season/:episode', name: 'UpdateEpisode', component: FormEpisode, props: true, meta:{ permissions: ['admin']}},
 
     
 
