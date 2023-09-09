@@ -41,10 +41,12 @@
     - Cadastrar-se como membro# 📽️ Anime-Flex 🎞️
 
 ## Tecnologias utilizadas
-<img heigth="40" alt="Badge-Vite" src="https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E"/>
-<img heigth="40" alt="Badge-Vue.js" src="https://img.shields.io/badge/Vue%20js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D"/>
-<img heigth="40" alt="Badge-Axios" src="https://img.shields.io/badge/axios-671ddf?&style=for-the-badge&logo=axios&logoColor=white"/>
-<img heigth="40" alt="Badge-Styled-Components" src="https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white"/>
+<div style="display: flex; justify-content: space-evenly; align-items: center">
+    <img heigth="40" alt="Badge-Vite" src="https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E"/>
+    <img heigth="40" alt="Badge-Vue.js" src="https://img.shields.io/badge/Vue%20js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D"/>
+    <img heigth="40" alt="Badge-Axios" src="https://img.shields.io/badge/axios-671ddf?&style=for-the-badge&logo=axios&logoColor=white"/>
+    <img heigth="40" alt="Badge-Styled-Components" src="https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white"/>
+</div>
 
 ## Como usar em Desenvolvimento
 
